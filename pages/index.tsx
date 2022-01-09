@@ -4,7 +4,7 @@ import { SWRConfig } from "swr";
 
 import { ApiRecently, PageProps } from "@types";
 
-import { axiosSSR, handleSSR } from "@utils/index";
+import { axiosSSR, handleSSR } from "@utils";
 
 import Index from "@routes/idx";
 

@@ -4,7 +4,7 @@ import { SWRConfig } from "swr";
 
 import { ApiEpisodeAnime, PageProps } from "@types";
 
-import { axiosSSR, handleSSR } from "@utils/index";
+import { axiosSSR, handleSSR } from "@utils";
 
 import AnimeEp from "@routes/anime/[anime]/[ep]";
 
