@@ -13,6 +13,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
@@ -62,6 +63,9 @@ export default function Index() {
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
+            <Head>
+                <title>Recently updated</title>
+            </Head>
             <Paper variant="outlined" component={Stack} width="100%" p={4}>
                 <Stack
                     flexDirection="row"

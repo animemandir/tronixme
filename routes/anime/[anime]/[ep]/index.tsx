@@ -1,4 +1,5 @@
 import { Box, Container, Grid, Paper } from "@mui/material";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import ReactPlayer from "react-player";
@@ -17,6 +18,9 @@ export default function AnimeEp() {
 
     return (
         <Container maxWidth="xl" sx={{ my: 2 }}>
+            <Head>
+                <title>{anime}</title>
+            </Head>
             <Grid container spacing={10}>
                 <Grid item xs={12} md={10}>
                     <Box position="relative" pt={1920 / 1080}>
