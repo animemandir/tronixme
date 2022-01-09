@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@badrap/bar-of-progress": "^0.1.2",
+        "@emotion/cache": "^11.7.1",
         "@emotion/react": "^11.7.1",
         "@emotion/server": "^11.4.0",
         "@emotion/styled": "^11.6.0",
