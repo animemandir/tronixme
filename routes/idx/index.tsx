@@ -1,3 +1,4 @@
+import InfoIcon from "@mui/icons-material/Info";
 import {
     Box,
     Card,
@@ -21,9 +22,18 @@ export default function Index() {
     return (
         <Container sx={{ my: 4 }}>
             <Paper variant="outlined" component={Stack} width="100%" p={4}>
-                <Typography variant="h4" align="left" gutterBottom>
-                    Recently updated
-                </Typography>
+                <Stack
+                    flexDirection="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    mb={1}
+                >
+                    <InfoIcon fontSize="large" />
+                    <Typography ml={0.5} variant="h4" align="left">
+                        Recently updated
+                    </Typography>
+                </Stack>
+
                 <Grid container spacing={4}>
                     {data.map(({ title, latest_ep, thumbnail }) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
