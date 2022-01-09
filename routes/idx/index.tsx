@@ -19,12 +19,12 @@ export default function Index() {
     const { data = [] } = useSWR<APIRecently[]>("/recently/sub");
 
     return (
-        <Container sx={{ my: 6 }}>
-            <Paper variant="outlined" component={Stack} width="100%" p={2}>
+        <Container sx={{ my: 4 }}>
+            <Paper variant="outlined" component={Stack} width="100%" p={4}>
                 <Typography variant="h4" align="left" gutterBottom>
                     Recently updated
                 </Typography>
-                <Grid container spacing={6}>
+                <Grid container spacing={4}>
                     {data.map(({ title, latest_ep, thumbnail }) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
                             <Card sx={{ width: "100%" }}>
