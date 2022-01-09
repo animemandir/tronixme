@@ -42,3 +42,11 @@ export interface ApiRecently {
     url: string;
     thumbnail: string;
 }
+
+export interface PageProps {
+    fallback: any;
+    error?: {
+        status: string;
+        data: string;
+    };
+}

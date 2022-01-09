@@ -5,7 +5,7 @@ import { AxiosRecentlySub } from "@types";
 
 import { BASE_URL } from "@config";
 
-import { handleError } from "@utils/index";
+import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
     const { type } = req.query;

@@ -6,7 +6,7 @@ import { AxiosEpisodeAnime } from "@types";
 
 import { BASE_URL, USER_AGENT } from "@config";
 
-import { generateEncryptAjaxParameters, handleError } from "@utils/index";
+import { generateEncryptAjaxParameters, handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
     const { anime, number } = req.query;
