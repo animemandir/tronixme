@@ -1,5 +1,5 @@
 {
-    "name": "anime-watcher",
+    "name": "tronixme",
     "private": true,
     "scripts": {
         "dev": "next dev",
