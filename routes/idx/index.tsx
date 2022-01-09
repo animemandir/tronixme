@@ -40,7 +40,12 @@ export default function Index() {
                                     </CardMedia>
 
                                     <CardContent>
-                                        <Typography>{title}</Typography>
+                                        <Typography gutterBottom variant="h6">
+                                            {title}
+                                        </Typography>
+                                        <Typography variant="body1" color="text.secondary">
+                                            {`Ep. ${latest_ep}`}
+                                        </Typography>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
