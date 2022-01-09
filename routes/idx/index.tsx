@@ -1,10 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 import axios from "redaxios";
 
+import { APIEpisodeAnime } from "@types";
+
 export default function Index() {
+    const [url, setUrl] = useState<string | undefined>(undefined);
     useEffect(() => {
-        axios.get("/api/recently/sub").then(({ data }) => console.log(data));
+        axios
+            .get<APIEpisodeAnime>("/api/episode/komi-san-wa-comyushou-desu/1")
+            .then(({ data }) => {
+                const url =
+                    data.source.find(({ label }) => label === "1080 P")?.file ||
+                    data.source[0].file;
+                setUrl(url);
+            });
     }, []);
 
-    return <div>Hello</div>;
+    return <ReactPlayer controls url={url} />;
 }

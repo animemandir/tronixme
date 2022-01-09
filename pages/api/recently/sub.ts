@@ -16,11 +16,14 @@ const get = async (req: Request, res: Response) => {
     }
 };
 
-export default function handler(req: Request, res: Response) {
+export default async function handler(req: Request, res: Response) {
     const { method } = req;
 
     switch (method) {
         case "GET":
-            get(req, res);
+            await get(req, res);
+            break;
+        default:
+            res.status(404).json("Not found");
     }
 }
