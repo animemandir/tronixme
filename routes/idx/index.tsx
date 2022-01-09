@@ -64,7 +64,7 @@ export default function Index() {
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
             <Head>
-                <title>Recently updated</title>
+                <title>Tronixme - Home</title>
             </Head>
             <Paper variant="outlined" component={Stack} width="100%" p={4}>
                 <Stack

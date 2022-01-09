@@ -19,7 +19,7 @@ export default function AnimeEp() {
     return (
         <Container maxWidth="xl" sx={{ my: 2 }}>
             <Head>
-                <title>{anime}</title>
+                <title>Tronixme - {anime}</title>
             </Head>
             <Grid container spacing={10}>
                 <Grid item xs={12} md={10}>
