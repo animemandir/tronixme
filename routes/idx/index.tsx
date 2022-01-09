@@ -24,9 +24,9 @@ export default function Index() {
                 <Typography variant="h4" align="left" gutterBottom>
                     Recently updated
                 </Typography>
-                <Grid width="100%" container spacing={2}>
+                <Grid container spacing={6}>
                     {data.map(({ title, latest_ep, thumbnail }) => (
-                        <Grid item xs={12} md={3} key={`${title}${latest_ep}`}>
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
                             <Card sx={{ width: "100%" }}>
                                 <CardActionArea>
                                     <CardMedia sx={{ height: 400 }}>
