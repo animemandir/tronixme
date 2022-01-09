@@ -1,18 +1,19 @@
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import Error from "next/error";
+import axios from "redaxios";
 import { SWRConfig } from "swr";
 
-import { ApiRecently, PageProps } from "@types";
+import { PageProps } from "@types";
 
-import { axiosSSR, handleSSR } from "@utils";
+import { BASE_URL } from "@config";
+
+import { handleSSR } from "@utils";
 
 import Index from "@routes/idx";
 
-export const getServerSideProps: GetServerSideProps = ({ req }) =>
+export const getStaticProps: GetStaticProps = () =>
     handleSSR(async () => {
-        const { host } = req.headers;
-
-        const { data } = await axiosSSR<ApiRecently>("/recently/sub", host || "");
+        const { data } = await axios.get(`${BASE_URL}/RecentlyUpdated/sub`);
 
         const fallback = {
             "/recently/sub": data,
@@ -20,6 +21,7 @@ export const getServerSideProps: GetServerSideProps = ({ req }) =>
 
         return {
             props: { fallback },
+            revalidate: 1 * 60 * 60 * 1,
         };
     });
 
