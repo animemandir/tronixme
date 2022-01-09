@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 
-import { APIRecently } from "@types";
+import { ApiRecently } from "@types";
 
 interface AnimeCardProps {
     title: string;
@@ -54,10 +54,10 @@ const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
 };
 
 export default function Index() {
-    const { data = [] } = useSWR<APIRecently[]>("/recently/sub");
+    const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
 
     return (
-        <Container sx={{ my: 4 }}>
+        <Container maxWidth="lg" sx={{ my: 4 }}>
             <Paper variant="outlined" component={Stack} width="100%" p={4}>
                 <Stack
                     flexDirection="row"

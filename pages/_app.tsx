@@ -39,7 +39,7 @@ const clientSideEmotionCache = createCache({ key: "css", prepend: true });
 
 const progress = new Progress({
     size: 3,
-    color: "#FFC107",
+    color: "#fff",
     delay: 40,
 });
 
