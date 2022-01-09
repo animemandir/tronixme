@@ -8,8 +8,11 @@ import { BASE_URL } from "@config";
 import { handleError } from "@utils/index";
 
 const get = async (req: Request, res: Response) => {
+    const { type } = req.query;
     try {
-        const { data } = await axios.get<AxiosRecentlySub>(`${BASE_URL}/RecentlyUpdated/Sub`);
+        const { data } = await axios.get<AxiosRecentlySub>(
+            `${BASE_URL}/RecentlyUpdated/${type}`
+        );
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json(handleError(error));
