@@ -10,6 +10,8 @@ import {
     Paper,
     Stack,
     Typography,
+    useMediaQuery,
+    useTheme,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -55,6 +57,8 @@ const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
 
 export default function Index() {
     const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
+    const theme = useTheme();
+    const isSm = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -66,7 +70,7 @@ export default function Index() {
                     mb={1}
                 >
                     <InfoIcon fontSize="large" />
-                    <Typography ml={0.5} variant="h4" align="left">
+                    <Typography ml={0.5} variant={isSm ? "h6" : "h5"} align="left">
                         Recently updated
                     </Typography>
                 </Stack>
