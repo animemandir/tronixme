@@ -8,7 +8,7 @@ export default function Index() {
     const [url, setUrl] = useState<string | undefined>(undefined);
     useEffect(() => {
         axios
-            .get<APIEpisodeAnime>("/api/episode/komi-san-wa-comyushou-desu/1")
+            .get<APIEpisodeAnime>("/episode/komi-san-wa-comyushou-desu/1")
             .then(({ data }) => {
                 const url =
                     data.source.find(({ label }) => label === "1080 P")?.file ||
