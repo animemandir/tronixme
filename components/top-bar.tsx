@@ -1,3 +1,12 @@
+import { AppBar, Toolbar, Typography } from "@mui/material";
+
 export function TopBar() {
-    return <div>todo</div>;
+    return (
+        <AppBar position="relative">
+            <Toolbar>
+                <Typography>Home</Typography>
+                <Typography>Recently updated</Typography>
+            </Toolbar>
+        </AppBar>
+    );
 }

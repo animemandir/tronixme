@@ -10,11 +10,16 @@ import Router from "next/router";
 import axios from "redaxios";
 import { SWRConfig } from "swr";
 
+import { TopBar } from "@components";
+
 axios.defaults.baseURL = "/api";
 
 const fetcher = (url: string) => axios.get(url).then(x => x.data);
 
 const theme = createTheme({
+    palette: {
+        mode: "dark",
+    },
     typography: {
         fontFamily: [
             "Inter",
@@ -57,6 +62,7 @@ export default function MyApp(props: MyAppProps) {
             <ThemeProvider theme={theme}>
                 <SWRConfig value={{ fetcher }}>
                     <CssBaseline />
+                    <TopBar />
                     <Component {...pageProps} />
                 </SWRConfig>
             </ThemeProvider>

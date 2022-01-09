@@ -1,21 +1,26 @@
-import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
-import axios from "redaxios";
+import { Box, Card, CardContent, Container, Grid, Paper, Typography } from "@mui/material";
+import useSWR from "swr";
 
-import { APIEpisodeAnime } from "@types";
+import { APIRecently } from "@types";
 
 export default function Index() {
-    const [url, setUrl] = useState<string | undefined>(undefined);
-    useEffect(() => {
-        axios
-            .get<APIEpisodeAnime>("/episode/komi-san-wa-comyushou-desu/1")
-            .then(({ data }) => {
-                const url =
-                    data.source.find(({ label }) => label === "1080 P")?.file ||
-                    data.source[0].file;
-                setUrl(url);
-            });
-    }, []);
+    const { data = [] } = useSWR<APIRecently[]>("/recently/sub");
 
-    return <ReactPlayer controls url={url} />;
+    return (
+        <Container sx={{ my: 6 }}>
+            <Paper component={Box} width="100%">
+                <Grid width="100%" container spacing={2}>
+                    {data.map(({ title, latest_ep, thumbnail }) => (
+                        <Grid item xs={6} md={4} key={`${title}${latest_ep}`}>
+                            <Card sx={{ width: "100%" }}>
+                                <CardContent>
+                                    <Typography>{title}</Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Paper>
+        </Container>
+    );
 }
