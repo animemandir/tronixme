@@ -111,7 +111,7 @@ export default function AnimeEp() {
             <Head>
                 <title>{anime[0].animetitle}</title>
             </Head>
-            <Grid container spacing={10}>
+            <Grid container spacing={6}>
                 <Grid item xs={12}>
                     <Stack>
                         <Breadcrumbs separator={<NavigateNextIcon />}>
