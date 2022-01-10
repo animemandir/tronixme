@@ -34,14 +34,22 @@ const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
     return (
         <Card sx={{ width: "100%" }} variant="outlined">
             <Link passHref href={`${url}/${ep}`}>
-                <CardActionArea LinkComponent="a">
-                    <CardMedia sx={{ height: mobile ? 200 : 400 }}>
+                <CardActionArea
+                    LinkComponent="a"
+                    sx={{
+                        display: "flex",
+                        flexDirection: mobile ? "row" : "column",
+                        justifyContent: "flex-start",
+                        width: "100%",
+                    }}
+                >
+                    <CardMedia sx={{ height: mobile ? 200 : 400, width: mobile ? 125 : 300 }}>
                         <Box position="relative" width="100%" height="100%">
                             <Image src={thumbnail} layout="fill" objectFit="cover" />
                         </Box>
                     </CardMedia>
 
-                    <CardContent>
+                    <CardContent sx={{ flex: 1 }}>
                         <Typography gutterBottom>{title}</Typography>
                         <Typography variant="body2" color="text.secondary">
                             {`Ep. ${ep}`}
@@ -78,7 +86,7 @@ export default function Index() {
 
                 <Grid container spacing={4}>
                     {data.map(({ title, latest_ep, thumbnail, url }) => (
-                        <Grid item xs={6} md={4} lg={3} key={`${title}${latest_ep}`}>
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
                             <AnimeCard
                                 url={url}
                                 ep={latest_ep}

@@ -22,7 +22,7 @@ export function TopBar() {
                             Home
                         </Button>
                     </Link>
-                    <Box flex={1} />
+                    <Box flex={1} px={2} />
                     <Stack flexDirection="row" justifyContent="center" alignItems="center">
                         <SearchIcon />
                         <InputBase
