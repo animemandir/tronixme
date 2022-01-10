@@ -2,6 +2,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
     Box,
     Breadcrumbs,
+    Button,
+    Chip,
     Container,
     Divider,
     Grid,
@@ -13,6 +15,7 @@ import {
 } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import ReactPlayer from "react-player";
@@ -28,19 +31,57 @@ const AnimeInfo = () => {
 
     const { data: anime = [{}] } = useSWR<APIAnime[]>(`/anime/${key}`);
 
+    const episodes = useMemo(() => {
+        if (!anime[0].total_episodes) return [];
+        return [...Array(Number(anime[0].total_episodes)).keys()].map(i => i + 1);
+    }, [anime]);
+
     return (
-        <Grid direction="row" container spacing={3} component={Paper}>
-            {!mobile && (
-                <Grid item sm={2} height={300}>
-                    <Box position="relative" width="100%" height="100%">
-                        {anime[0].thumbnail && (
-                            <Image src={anime[0].thumbnail} layout="fill" objectFit="cover" />
-                        )}
-                    </Box>
+        <Stack p={3} component={Paper} justifyContent="center" alignItems="center">
+            <Grid direction="row" container spacing={3}>
+                {!mobile && (
+                    <Grid item sm={2} height={300}>
+                        <Box position="relative" width="100%" height="100%">
+                            {anime[0].thumbnail && (
+                                <Image
+                                    src={anime[0].thumbnail}
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
+                            )}
+                        </Box>
+                    </Grid>
+                )}
+
+                <Grid item xs>
+                    <Stack flexDirection="row">
+                        <Link href={`/anime/${key}`} passHref>
+                            <Typography variant="h6" component="a">
+                                {anime[0].animetitle}
+                            </Typography>
+                        </Link>
+                    </Stack>
+                    <Divider>
+                        <Chip label="Episodes" />
+                    </Divider>
+                    <Stack flexDirection="row" flexWrap="wrap">
+                        {episodes.map(i => (
+                            <Box mx={1} key={i} my={2}>
+                                <Link href={`/anime/${key}/${i}`} passHref>
+                                    <Button
+                                        LinkComponent="a"
+                                        variant="contained"
+                                        color={Number(ep) === i ? "primary" : "secondary"}
+                                    >
+                                        {i}
+                                    </Button>
+                                </Link>
+                            </Box>
+                        ))}
+                    </Stack>
                 </Grid>
-            )}
-            <Grid item></Grid>
-        </Grid>
+            </Grid>
+        </Stack>
     );
 };
 
