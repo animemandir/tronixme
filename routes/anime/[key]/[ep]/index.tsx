@@ -1,3 +1,4 @@
+import InfoIcon from "@mui/icons-material/Info";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
     Box,
@@ -54,19 +55,28 @@ const AnimeInfo = () => {
                 )}
 
                 <Grid item xs>
-                    <Stack flexDirection="row">
+                    <Stack
+                        flexDirection="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <Typography variant="h6">{anime[0].animetitle}</Typography>
                         <Link href={`/anime/${key}`} passHref>
-                            <Typography variant="h6" component="a">
-                                {anime[0].animetitle}
-                            </Typography>
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                startIcon={<InfoIcon />}
+                            >
+                                Anime page
+                            </Button>
                         </Link>
                     </Stack>
-                    <Divider>
+                    <Divider sx={{ my: 2 }}>
                         <Chip label="Episodes" />
                     </Divider>
                     <Stack flexDirection="row" flexWrap="wrap">
                         {episodes.map(i => (
-                            <Box mx={1} key={i} my={2}>
+                            <Box mx={1} key={i}>
                                 <Link href={`/anime/${key}/${i}`} passHref>
                                     <Button
                                         LinkComponent="a"
