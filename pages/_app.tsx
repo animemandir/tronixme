@@ -19,6 +19,12 @@ const fetcher = (url: string) => axios.get(url).then(x => x.data);
 const theme = createTheme({
     palette: {
         mode: "dark",
+        primary: {
+            main: "#bb86fc",
+        },
+        secondary: {
+            main: "#03dac5",
+        },
     },
     typography: {
         fontFamily: [
