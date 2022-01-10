@@ -1,10 +1,5 @@
 import InfoIcon from "@mui/icons-material/Info";
 import {
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
     Container,
     Grid,
     Paper,
@@ -14,52 +9,11 @@ import {
     useTheme,
 } from "@mui/material";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import useSWR from "swr";
 
 import { ApiRecently } from "@types";
 
-interface AnimeCardProps {
-    title: string;
-    ep: string;
-    thumbnail: string;
-    url: string;
-}
-
-const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
-    const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    return (
-        <Card sx={{ width: "100%" }} variant="outlined">
-            <Link passHref href={`${url}/${ep}`}>
-                <CardActionArea
-                    LinkComponent="a"
-                    sx={{
-                        display: "flex",
-                        flexDirection: mobile ? "row" : "column",
-                        justifyContent: "flex-start",
-                        width: "100%",
-                    }}
-                >
-                    <CardMedia sx={{ height: mobile ? 200 : 400, width: mobile ? 125 : 300 }}>
-                        <Box position="relative" width="100%" height="100%">
-                            <Image src={thumbnail} layout="fill" objectFit="cover" />
-                        </Box>
-                    </CardMedia>
-
-                    <CardContent sx={{ flex: 1 }}>
-                        <Typography gutterBottom>{title}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {`Ep. ${ep}`}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Link>
-        </Card>
-    );
-};
+import { AnimeCard } from "@components";
 
 export default function Index() {
     const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
