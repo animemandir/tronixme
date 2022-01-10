@@ -1,4 +1,4 @@
-import InfoIcon from "@mui/icons-material/Info";
+import SearchIcon from "@mui/icons-material/Search";
 import {
     Container,
     Grid,
@@ -12,7 +12,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import { ApiRecently } from "@types";
+import { APISearch } from "@types";
 
 import { AnimeCard } from "@components";
 
@@ -22,7 +22,7 @@ export default function Search() {
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { data = [] } = useSWR<ApiRecently[]>(`/anime/search?q=${q}`);
+    const { data = [] } = useSWR<APISearch[]>(`/anime/search?q=${q}`);
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -36,16 +36,16 @@ export default function Search() {
                     alignItems="center"
                     mb={1}
                 >
-                    <InfoIcon fontSize="large" />
+                    <SearchIcon fontSize="large" />
                     <Typography ml={0.5} variant={mobile ? "h6" : "h5"} align="left">
                         Searched {`"${q}"`}
                     </Typography>
                 </Stack>
 
                 <Grid container spacing={4}>
-                    {data.map(({ title, thumbnail, url }) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}`}>
-                            <AnimeCard url={url} thumbnail={thumbnail} title={title} />
+                    {data.map(({ thumbnail, url, animetitle }) => (
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${animetitle}`}>
+                            <AnimeCard url={url} thumbnail={thumbnail} title={animetitle} />
                         </Grid>
                     ))}
                 </Grid>

@@ -35,7 +35,9 @@ export function AnimeCard({ ep = "", thumbnail, title, url }: AnimeCardProps) {
                         width: "100%",
                     }}
                 >
-                    <CardMedia sx={{ height: mobile ? 200 : 400, width: mobile ? 125 : 300 }}>
+                    <CardMedia
+                        sx={{ height: mobile ? 200 : 400, width: mobile ? 125 : "100%" }}
+                    >
                         <Box position="relative" width="100%" height="100%">
                             <Image src={thumbnail} layout="fill" objectFit="cover" />
                         </Box>
