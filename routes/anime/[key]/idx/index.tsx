@@ -1,6 +1,7 @@
-import { Box, Chip, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Chip, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import useSWR from "swr";
@@ -14,6 +15,11 @@ export default function AnimeIndex() {
     const genres = useMemo(() => {
         if (!anime[0].anime_genre) return [];
         return anime[0].anime_genre.split(",");
+    }, [anime]);
+
+    const episodes = useMemo(() => {
+        if (!anime[0].total_episodes) return [];
+        return [...Array(Number(anime[0].total_episodes)).keys()].map(i => i + 1);
     }, [anime]);
 
     return (
@@ -91,6 +97,21 @@ export default function AnimeIndex() {
                         </Typography>
                     </Grid>
                 </Grid>
+            </Stack>
+
+            <Stack mt={2} component={Paper} p={2}>
+                <Typography variant="h6" ml={1}>
+                    Episodes:{" "}
+                </Typography>
+                <Stack flexDirection="row" flexWrap="wrap">
+                    {episodes.map(i => (
+                        <Link key={i} href={`/anime/${key}/${i}`} passHref>
+                            <Button sx={{ m: 1 }} LinkComponent="a" variant="contained">
+                                {i}
+                            </Button>
+                        </Link>
+                    ))}
+                </Stack>
             </Stack>
         </Container>
     );
