@@ -76,7 +76,7 @@ const AnimeInfo = () => {
                     </Divider>
                     <Stack flexDirection="row" flexWrap="wrap">
                         {episodes.map(i => (
-                            <Box mx={1} key={i}>
+                            <Box m={1} key={i}>
                                 <Link href={`/anime/${key}/${i}`} passHref>
                                     <Button
                                         LinkComponent="a"
