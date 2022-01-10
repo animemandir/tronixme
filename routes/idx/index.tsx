@@ -28,25 +28,22 @@ interface AnimeCardProps {
 }
 
 const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
+    const theme = useTheme();
+    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
-        <Card sx={{ width: "100%" }}>
+        <Card sx={{ width: "100%" }} variant="outlined">
             <Link passHref href={`${url}/${ep}`}>
                 <CardActionArea LinkComponent="a">
-                    <CardMedia sx={{ height: 400 }}>
+                    <CardMedia sx={{ height: mobile ? 200 : 400 }}>
                         <Box position="relative" width="100%" height="100%">
-                            <Image
-                                src={thumbnail}
-                                layout="fill"
-                                objectFit="cover" // or objectFit="cover"
-                            />
+                            <Image src={thumbnail} layout="fill" objectFit="cover" />
                         </Box>
                     </CardMedia>
 
                     <CardContent>
-                        <Typography gutterBottom variant="h6">
-                            {title}
-                        </Typography>
-                        <Typography variant="body1" color="text.secondary">
+                        <Typography gutterBottom>{title}</Typography>
+                        <Typography variant="body2" color="text.secondary">
                             {`Ep. ${ep}`}
                         </Typography>
                     </CardContent>
@@ -59,14 +56,14 @@ const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
 export default function Index() {
     const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
     const theme = useTheme();
-    const isSm = useMediaQuery(theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
             <Head>
                 <title>Tronixme - Home</title>
             </Head>
-            <Paper variant="outlined" component={Stack} width="100%" p={4}>
+            <Paper component={Stack} width="100%" p={4}>
                 <Stack
                     flexDirection="row"
                     justifyContent="flex-start"
@@ -74,14 +71,14 @@ export default function Index() {
                     mb={1}
                 >
                     <InfoIcon fontSize="large" />
-                    <Typography ml={0.5} variant={isSm ? "h6" : "h5"} align="left">
+                    <Typography ml={0.5} variant={mobile ? "h6" : "h5"} align="left">
                         Recently updated
                     </Typography>
                 </Stack>
 
                 <Grid container spacing={4}>
                     {data.map(({ title, latest_ep, thumbnail, url }) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
+                        <Grid item xs={6} md={4} lg={3} key={`${title}${latest_ep}`}>
                             <AnimeCard
                                 url={url}
                                 ep={latest_ep}
