@@ -1,10 +1,5 @@
 import InfoIcon from "@mui/icons-material/Info";
 import {
-    Box,
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
     Container,
     Grid,
     Paper,
@@ -14,44 +9,11 @@ import {
     useTheme,
 } from "@mui/material";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import useSWR from "swr";
 
 import { ApiRecently } from "@types";
 
-interface AnimeCardProps {
-    title: string;
-    ep: string;
-    thumbnail: string;
-    url: string;
-}
-
-const AnimeCard = ({ ep, thumbnail, title, url }: AnimeCardProps) => {
-    const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-    return (
-        <Card sx={{ width: "100%" }} variant="outlined">
-            <Link passHref href={`${url}/${ep}`}>
-                <CardActionArea LinkComponent="a">
-                    <CardMedia sx={{ height: mobile ? 200 : 400 }}>
-                        <Box position="relative" width="100%" height="100%">
-                            <Image src={thumbnail} layout="fill" objectFit="cover" />
-                        </Box>
-                    </CardMedia>
-
-                    <CardContent>
-                        <Typography gutterBottom>{title}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {`Ep. ${ep}`}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Link>
-        </Card>
-    );
-};
+import { AnimeCard } from "@components";
 
 export default function Index() {
     const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
@@ -78,7 +40,7 @@ export default function Index() {
 
                 <Grid container spacing={4}>
                     {data.map(({ title, latest_ep, thumbnail, url }) => (
-                        <Grid item xs={6} md={4} lg={3} key={`${title}${latest_ep}`}>
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
                             <AnimeCard
                                 url={url}
                                 ep={latest_ep}
