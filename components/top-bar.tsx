@@ -1,8 +1,18 @@
 import HomeIcon from "@mui/icons-material/Home";
-import { AppBar, Button, Container, Toolbar } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Box, Button, Container, InputBase, Stack, Toolbar } from "@mui/material";
 import Link from "next/link";
+import Router from "next/router";
+import { useState } from "react";
 
 export function TopBar() {
+    const [search, setSearch] = useState("");
+
+    const handleSearch = ({ key }: KeyboardEvent) => {
+        if (key !== "Enter") return;
+        Router.push(`/search?q=${encodeURIComponent(search)}`);
+    };
+
     return (
         <AppBar position="relative">
             <Container maxWidth="lg">
@@ -12,6 +22,17 @@ export function TopBar() {
                             Home
                         </Button>
                     </Link>
+                    <Box flex={1} />
+                    <Stack flexDirection="row" justifyContent="center" alignItems="center">
+                        <SearchIcon />
+                        <InputBase
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                            onKeyDown={e => handleSearch(e as any)}
+                            sx={{ ml: 0.5 }}
+                            placeholder="Search"
+                        />
+                    </Stack>
                 </Toolbar>
             </Container>
         </AppBar>
