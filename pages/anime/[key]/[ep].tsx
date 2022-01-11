@@ -5,16 +5,23 @@ import { SWRConfig } from "swr";
 
 import { PageProps } from "@types";
 
-import { handleSSR } from "@utils";
+import { axiosSSR, handleSSR } from "@utils";
 
 import AnimeEp from "@routes/anime/[key]/[ep]";
 
-export const getServerSideProps: GetServerSideProps = ({ query }) =>
+export const getServerSideProps: GetServerSideProps = ({ query, req }) =>
     handleSSR(async () => {
+        const { host } = req.headers;
         const { key, ep } = query;
 
+        const [{ data: anime }, urls] = await Promise.all([
+            axiosSSR(`/anime/${key}`, String(host)),
+            scrapeUrl(String(key), String(ep)),
+        ]);
+
         const fallback = {
-            [`/episode/${key}/${ep}`]: await scrapeUrl(String(key), String(ep)),
+            [`/anime/${key}`]: anime,
+            [`/episode/${key}/${ep}`]: urls,
         };
 
         return {
