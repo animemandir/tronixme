@@ -98,7 +98,10 @@ const AnimeInfo = () => {
 export default function AnimeEp() {
     const { key, ep } = useRouter().query;
 
-    const { data: links } = useSWR<ApiEpisodeAnime>(`/episode/${key}/${ep}`);
+    const { data: links } = useSWR<ApiEpisodeAnime>(`/episode/${key}/${ep}`, {
+        // don't rerender this
+        compare: () => true,
+    });
     const { data: anime = [{}] } = useSWR<APIAnime[]>(`/anime/${key}`);
 
     const url = useMemo(() => {
