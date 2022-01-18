@@ -40,6 +40,12 @@ export const scrapeUrl = async (anime: string, number: string) => {
 
 const get = async (req: Request, res: Response) => {
     const { key, number } = req.query;
+
+    if (req.cookies.secret !== process.env.SECRET) {
+        res.status(403).send("Forbidden");
+        return;
+    }
+
     try {
         res.status(200).json(await scrapeUrl(String(key), String(number)));
     } catch (error) {
