@@ -18,6 +18,7 @@ export interface RecentEpisodes {
     hot: boolean;
     episode: string;
     img: string;
+    id: string;
 }
 
 export interface Anime {

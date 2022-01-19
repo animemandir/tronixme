@@ -1,10 +1,10 @@
+import { BASE_URL, USER_AGENT } from "./constants";
+import { AxiosVideos } from "./types";
+import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
+import { between, bypassGogo } from "./utils";
 import axios from "axios";
 import cheerio from "cheerio";
 import { URL } from "url";
-import { BASE_URL, USER_AGENT } from "./constants";
-import { AxiosVideos } from "./types";
-import { between, bypassGogo } from "./utils";
-import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
 
 axios.defaults.headers.common = {
     "User-Agent": USER_AGENT,
@@ -112,6 +112,7 @@ const recent = async () => {
             episode,
             hot: $(el).text().includes("HOT"),
             img: BASE_URL + $(el).find("img").attr("data-src"),
+            id: $(el).find("a").attr("href") || "",
         });
     });
 

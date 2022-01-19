@@ -38,9 +38,9 @@ export default function Index() {
                 </Stack>
 
                 <Grid container spacing={4}>
-                    {data.map(({ anime, date, description, episode, hot, img }, i) => (
+                    {data.map(({ anime, date, description, episode, hot, img, id }, i) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={JSON.stringify(data[i])}>
-                            <AnimeCard url="test" ep={episode} thumbnail={img} title={anime} />
+                            <AnimeCard url={id} ep={episode} thumbnail={img} title={anime} />
                         </Grid>
                     ))}
                 </Grid>
