@@ -1,11 +1,9 @@
+import { recent } from "animedao";
 import { GetStaticProps } from "next";
 import Error from "next/error";
-import axios from "redaxios";
 import { SWRConfig } from "swr";
 
 import { PageProps } from "@types";
-
-import { BASE_URL } from "@config";
 
 import { handleSSR } from "@utils";
 
@@ -13,10 +11,8 @@ import Index from "@routes/idx";
 
 export const getStaticProps: GetStaticProps = () =>
     handleSSR(async () => {
-        const { data } = await axios.get(`${BASE_URL}/RecentlyUpdated/sub`);
-
         const fallback = {
-            "/recently/sub": data,
+            "/recent": await recent(),
         };
 
         return {

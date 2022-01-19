@@ -8,15 +8,14 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import type { RecentEpisodes } from "animedao";
 import Head from "next/head";
 import useSWR from "swr";
-
-import { ApiRecently } from "@types";
 
 import { AnimeCard } from "@components";
 
 export default function Index() {
-    const { data = [] } = useSWR<ApiRecently[]>("/recently/sub");
+    const { data = [] } = useSWR<RecentEpisodes[]>("/recent");
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -39,14 +38,9 @@ export default function Index() {
                 </Stack>
 
                 <Grid container spacing={4}>
-                    {data.map(({ title, latest_ep, thumbnail, url }) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${title}${latest_ep}`}>
-                            <AnimeCard
-                                url={url}
-                                ep={latest_ep}
-                                thumbnail={thumbnail}
-                                title={title}
-                            />
+                    {data.map(({ anime, date, description, episode, hot, img }, i) => (
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={JSON.stringify(data[i])}>
+                            <AnimeCard url="test" ep={episode} thumbnail={img} title={anime} />
                         </Grid>
                     ))}
                 </Grid>
