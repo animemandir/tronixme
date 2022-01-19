@@ -10,7 +10,7 @@ import Router from "next/router";
 import axios from "redaxios";
 import { SWRConfig } from "swr";
 
-import { Footer, TopBar } from "@components";
+import { Footer, Topbar } from "@components";
 
 axios.defaults.baseURL = "/api";
 
@@ -68,7 +68,7 @@ export default function MyApp(props: MyAppProps) {
             <ThemeProvider theme={theme}>
                 <SWRConfig value={{ fetcher }}>
                     <CssBaseline />
-                    <TopBar />
+                    <Topbar />
                     <Component {...pageProps} />
                     <Footer />
                 </SWRConfig>

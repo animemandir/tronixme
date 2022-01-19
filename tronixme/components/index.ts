@@ -1,3 +1,3 @@
-export * from "./top-bar";
-export * from "./anime-card";
-export * from "./footer";
+export * from "./Topbar";
+export * from "./AnimeCard";
+export * from "./Footer";

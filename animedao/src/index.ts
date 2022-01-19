@@ -112,7 +112,7 @@ const recent = async () => {
             episode,
             hot: $(el).text().includes("HOT"),
             img: BASE_URL + $(el).find("img").attr("data-src"),
-            id: $(el).find("a").attr("href") || "",
+            id: $(el).find("a").attr("href")?.replace(/\D+/g, "") || "",
         });
     });
 

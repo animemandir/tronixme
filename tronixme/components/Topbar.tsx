@@ -5,7 +5,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
 
-export function TopBar() {
+export function Topbar() {
     const [search, setSearch] = useState("");
 
     const handleSearch = ({ key }: KeyboardEvent) => {

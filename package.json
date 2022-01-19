@@ -4,7 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "cd tronixme && npm run dev",
+        "animedao:build": "cd animedao && npm run build",
+        "build": "(cd animedao && npm run build) & (cd tronixme && npm run build)"
     },
     "workspaces": [
         "animedao",

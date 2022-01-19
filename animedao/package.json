@@ -8,7 +8,8 @@
         "dist"
     ],
     "scripts": {
-        "dev": "cd src && ts-node-dev index.ts"
+        "dev": "cd src && ts-node-dev index.ts",
+        "build": "tsc"
     },
     "keywords": [],
     "author": "",
