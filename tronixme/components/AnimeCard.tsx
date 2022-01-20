@@ -5,6 +5,8 @@ import {
     CardActionArea,
     CardContent,
     CardMedia,
+    Chip,
+    Stack,
     Typography,
     useMediaQuery,
     useTheme,
@@ -29,30 +31,40 @@ export const AnimeCard = memo(
         const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
         return (
-            <Badge invisible={!hot} badgeContent={"Hot"} sx={{ width: "100%" }} color="error">
-                <Card sx={{ width: "100%", display: "flex" }} variant="outlined">
-                    <CardMedia sx={{ width: 100, height: 150 }}>
-                        <Box position="relative" width="100%" height="100%">
-                            <Image src={thumbnail} layout="fill" objectFit="cover" />
-                        </Box>
-                    </CardMedia>
+            <Card sx={{ width: "100%", display: "flex", p: 3 }} variant="outlined">
+                <CardMedia sx={{ flex: 1 }}>
+                    <Box
+                        borderRadius={Number(theme.shape.borderRadius) - 14}
+                        overflow="hidden"
+                        position="relative"
+                        width="100%"
+                        height="100%"
+                    >
+                        <Image src={thumbnail} layout="fill" objectFit="cover" />
+                    </Box>
+                </CardMedia>
 
-                    <CardContent sx={{ flex: 1 }}>
-                        <Typography gutterBottom>{title}</Typography>
-                        <Typography
-                            textOverflow="ellipsis"
-                            fontSize="80%"
-                            variant="body2"
-                            color="text.secondary"
-                        >
-                            {description}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {/\d/.test(ep) && `Ep. ${ep}`}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Badge>
+                <CardContent sx={{ width: "70%", display: "flex", flexDirection: "column" }}>
+                    <Typography
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis"
+                        gutterBottom
+                    >
+                        {description}
+                    </Typography>
+                    <Stack flexDirection="row" flexWrap="wrap">
+                        {/\d/.test(ep) && (
+                            <Chip sx={{ m: 0.5 }} color="info" label={`Ep. ${ep}`} />
+                        )}
+                        {hot && <Chip sx={{ m: 0.5 }} label="Hot" color="error" />}
+                        <Chip sx={{ m: 0.5 }} label={date} />
+                    </Stack>
+                    <Typography variant="body2" color="text.secondary" mt={1}>
+                        {title}
+                    </Typography>
+                </CardContent>
+            </Card>
         );
     }
 );

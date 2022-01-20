@@ -20,7 +20,7 @@ export default function Index() {
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
-        <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Container maxWidth="xl" sx={{ my: 4 }}>
             <Head>
                 <title>Tronixme - Home</title>
             </Head>

@@ -17,6 +17,9 @@ axios.defaults.baseURL = "/api";
 const fetcher = (url: string) => axios.get(url).then(x => x.data);
 
 const theme = createTheme({
+    shape: {
+        borderRadius: 15,
+    },
     palette: {
         mode: "dark",
         primary: {
