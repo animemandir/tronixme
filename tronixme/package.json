@@ -5,7 +5,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "eslint": "next lint"
+        "lint": "next lint"
     },
     "dependencies": {
         "@badrap/bar-of-progress": "^0.1.2",
