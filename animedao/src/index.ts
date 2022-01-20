@@ -2,11 +2,11 @@ import { BASE_URL, USER_AGENT } from "./constants";
 import { AxiosVideos } from "./types";
 import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
 import { between, bypassGogo } from "./utils";
-import axios from "axios";
 import cheerio from "cheerio";
+import axios from "redaxios";
 import { URL } from "url";
 
-axios.defaults.headers.common = {
+axios.defaults.headers = {
     "User-Agent": USER_AGENT,
 };
 
