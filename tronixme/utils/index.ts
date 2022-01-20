@@ -9,8 +9,8 @@ export const handleSSR = async (fn: () => any) => {
         return {
             props: {
                 error: {
-                    status: JSON.stringify(error.status),
-                    data: JSON.stringify(error.data),
+                    status: JSON.stringify(error.status || error),
+                    data: JSON.stringify(error.data || error),
                 },
             },
         };
