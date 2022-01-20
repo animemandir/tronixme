@@ -3,17 +3,19 @@ import { AxiosVideos } from "./types";
 import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
 import { between, bypassGogo } from "./utils";
 import cheerio from "cheerio";
+import scraper from "cloudscraper";
 import axios from "redaxios";
 import { URL } from "url";
 
-axios.defaults.headers = {
-    "User-Agent": USER_AGENT,
-};
-
 const search = async (key: string) => {
-    const { data: res } = await axios.get(
-        `${BASE_URL}/search/?search=${encodeURIComponent(key)}`
-    );
+    // const { data: res } = await axios.get(
+    //     `${BASE_URL}/search/?search=${encodeURIComponent(key)}`
+    // );
+
+    const res = await scraper({
+        method: "GET",
+        url: `${BASE_URL}/search/?search=${encodeURIComponent(key)}`,
+    });
 
     const $ = cheerio.load(res);
     const anime = $("div.col-xs-12.col-sm-6.col-md-6.col-lg-4");
@@ -97,7 +99,7 @@ const getVideo = async (id: string | number) => {
 };
 
 const recent = async () => {
-    const { data } = await axios.get(BASE_URL);
+    const data = await scraper({ method: "GET", url: BASE_URL });
     const $ = cheerio.load(data);
 
     const episodes: RecentEpisodes[] = [];
