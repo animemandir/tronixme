@@ -11,7 +11,7 @@ export default function Recent() {
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
-        <Paper component={Stack} width="100%" p={4}>
+        <Stack component={Paper} width="100%" p={4}>
             <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" mb={1}>
                 <InfoIcon fontSize="large" />
                 <Typography ml={0.5} variant={mobile ? "h6" : "h5"} align="left">
@@ -34,6 +34,6 @@ export default function Recent() {
                     </Grid>
                 ))}
             </Grid>
-        </Paper>
+        </Stack>
     );
 }
