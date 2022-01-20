@@ -21,7 +21,6 @@
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.10",
-        "cloudscraper": "^4.6.0",
         "crypto-js": "^4.1.1",
         "redaxios": "^0.4.1"
     }
