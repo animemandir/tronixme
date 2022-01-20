@@ -6,12 +6,15 @@
     "scripts": {
         "dev": "cd tronixme && npm run dev",
         "animedao:build": "cd animedao && npm run build",
-        "build": "(cd animedao && npm run build) & (cd tronixme && npm run build)",
+        "build": "concurrently \"cd animedao && npm run build\" \"cd tronixme && npm run build\"",
         "start": "cd tronixme && npm run start",
         "lint": "cd tronixme && npm run lint"
     },
     "workspaces": [
         "animedao",
         "tronixme"
-    ]
+    ],
+    "devDependencies": {
+        "concurrently": "^7.0.0"
+    }
 }

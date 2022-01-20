@@ -42,13 +42,7 @@ export default function Search() {
                     </Typography>
                 </Stack>
 
-                <Grid container spacing={4}>
-                    {data.map(({ thumbnail, url, animetitle }) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={`${animetitle}`}>
-                            <AnimeCard url={url} thumbnail={thumbnail} title={animetitle} />
-                        </Grid>
-                    ))}
-                </Grid>
+                <Grid container spacing={4}></Grid>
             </Paper>
         </Container>
     );
