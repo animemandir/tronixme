@@ -8,6 +8,7 @@ import { URL } from "url";
 
 axios.defaults.headers = {
     "User-Agent": USER_AGENT,
+    Cookie: "__cf_bm=0i4rbYc32I6qaXiHV6fllKO6G8POuZmKh8RHLOuJ8uM-1642858461-0-ATth1+ZaBql00qmXRbCSdv0N0OUby+wUOIkKbH6NZ1XovwJGiozqzPbxCE6RwFR3LLeiTlRVok2XBcoS2+P3SkFo+ictKAZMuRZG/4qGTfG8BMRK/0jT7+aLizKYYUUyrQ==",
 };
 
 const search = async (key: string) => {
