@@ -19,10 +19,12 @@ export interface RecentEpisodes {
     episode: string;
     img: string;
     id: string;
+    slug: string;
 }
 
 export interface Anime {
     episodes: Episodes[];
+    img: string;
     title: string;
     rating: string;
     score: string;
@@ -32,6 +34,16 @@ export interface Anime {
     next: string;
     year: string;
     status: string;
+    relations: {
+        sequel?: Relation;
+        prequel?: Relation;
+    };
+}
+
+export interface Relation {
+    title: string;
+    slug: string;
+    img: string;
 }
 
 export interface SearchAnime {

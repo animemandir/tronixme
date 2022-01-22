@@ -5,6 +5,7 @@ import {
     CardContent,
     CardMedia,
     Chip,
+    Link as MuiLink,
     Stack,
     Typography,
 } from "@mui/material";
@@ -20,10 +21,11 @@ interface AnimeCardProps {
     date: string;
     description: string;
     hot: boolean;
+    slug: string;
 }
 
 export const AnimeCard = memo(
-    ({ ep = "", thumbnail, title, url, date, description, hot }: AnimeCardProps) => (
+    ({ ep = "", thumbnail, title, url, date, description, hot, slug }: AnimeCardProps) => (
         <Card variant="outlined" component={CardActionArea}>
             <Link href={url} passHref>
                 <Box width="100%" height="100%" display="flex">
@@ -51,9 +53,16 @@ export const AnimeCard = memo(
                             {hot && <Chip sx={{ m: 0.5 }} label="Hot" color="error" />}
                             <Chip sx={{ m: 0.5 }} label={date} />
                         </Stack>
-                        <Typography variant="body2" color="text.secondary" mt={1}>
-                            {title || description}
-                        </Typography>
+                        <Link href={`/anime/${slug}`} passHref>
+                            <Typography
+                                component={MuiLink}
+                                variant="body2"
+                                color="text.secondary"
+                                mt={1}
+                            >
+                                {title || description}
+                            </Typography>
+                        </Link>
                     </CardContent>
                 </Box>
             </Link>

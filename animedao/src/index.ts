@@ -41,16 +41,20 @@ const getAnime = async (slug: string) => {
         });
     });
 
-    const card = $(".col-lg-8").text();
+    const card = $(".col-lg-8");
 
-    const anime: Anime = {
+    const prequelEl = card.find("div.row").children().first();
+    const sequelEl = card.find("div.row").children().eq(1);
+
+    let anime: Anime = {
         episodes,
+        img: BASE_URL + $(".col-lg-4 > center:nth-child(1) > img:nth-child(1)").attr("src"),
         title: $(".col-lg-8 > h2:nth-child(1) > b:nth-child(1)").text().trim(),
         score: $(".col-lg-8 > h4:nth-child(2) > b:nth-child(1)").text().trim(),
-        alternative: between("Alternative:", "Rating:", card).trim(),
-        rating: between("Rating:", "Year:", card).trim(),
-        year: between("Year:", "Status:", card).trim(),
-        status: between("Status:", "Genres:", card).trim(),
+        alternative: between("Alternative:", "Rating:", card.text()).trim(),
+        rating: between("Rating:", "Year:", card.text()).trim(),
+        year: between("Year:", "Status:", card.text()).trim(),
+        status: between("Status:", "Genres:", card.text()).trim(),
         genres: $("a.animeinfo_label")
             .map((i, el) => $(el).text().trim())
             .toArray(),
@@ -59,7 +63,36 @@ const getAnime = async (slug: string) => {
             .replace(/Description/, "")
             .trim(),
         next: $(".anime-countdown > center:nth-child(1) > b:nth-child(2)").text().trim(),
+        relations: {
+            prequel: {
+                title: prequelEl.find("h5").text().trim(),
+                img: BASE_URL + prequelEl.find("img").attr("src"),
+                slug:
+                    prequelEl
+                        .find("a")
+                        .attr("href")
+                        ?.replace(/\/anime\//, "")
+                        .slice(0, -1) || "",
+            },
+            sequel: {
+                title: sequelEl.find("h5").text().trim(),
+                img: BASE_URL + sequelEl.find("img").attr("src"),
+                slug:
+                    sequelEl
+                        .find("a")
+                        .attr("href")
+                        ?.replace(/\/anime\//, "")
+                        .slice(0, -1) || "",
+            },
+        },
     };
+
+    if (!anime.relations.prequel?.title) {
+        anime.relations.prequel = undefined;
+    }
+    if (!anime.relations.sequel?.title) {
+        anime.relations.sequel = undefined;
+    }
 
     return anime;
 };
@@ -107,6 +140,12 @@ const recent = async () => {
             hot: $(el).text().includes("HOT"),
             img: BASE_URL + $(el).find("img").attr("data-src"),
             id: $(el).find("a").attr("href")?.replace(/\D+/g, "") || "",
+            slug:
+                $(el)
+                    .find("a.latest-parent")
+                    .attr("href")
+                    ?.replace(/\/anime\//, "")
+                    .slice(0, -1) || "",
         });
     });
 

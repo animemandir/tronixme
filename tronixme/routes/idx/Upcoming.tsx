@@ -1,5 +1,5 @@
 import { Box, Chip, Divider, Paper, Stack, Typography, useTheme } from "@mui/material";
-import { Upcoming as UpcomingEpisodes } from "animedao";
+import type { Upcoming as UpcomingEpisodes } from "animedao";
 import Image from "next/image";
 import useSWR from "swr";
 
