@@ -17,7 +17,6 @@ export default function Player() {
                     left: 0,
                 }}
                 controls
-                volume={0.5}
                 width="100%"
                 height="100%"
                 url={data?.source[data.source.length - 2].file}
