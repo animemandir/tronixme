@@ -1,6 +1,6 @@
-import axios from "axios";
 import type { CheerioAPI } from "cheerio";
 import CryptoJS from "crypto-js";
+import axios from "redaxios";
 
 export const between = (a: string, b: string, str: string) => {
     return str.slice(str.indexOf(a) + a.length, b ? str.indexOf(b) : str.length);
@@ -54,8 +54,36 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
 
 export const http = async <T = any>(url: string) => {
     const { data } = await axios.post<T>("https://apide.reqbin.com/api/v1/requests", {
-        json: `"{\"method\":\"GET\",\"url\":\"https://animedao.to\",\"apiNode\":\"DE\",\"contentType\":\"\",\"content\":\"\",\"headers\":\"\",\"errors\":\"\",\"curlCmd\":\"\",\"codeCmd\":\"\",\"lang\":\"\",\"auth\":{\"auth\":\"noAuth\",\"bearerToken\":\"\",\"basicUsername\":\"\",\"basicPassword\":\"\",\"customHeader\":\"\",\"encrypted\":\"\"},\"compare\":false,\"idnUrl\":\"${url}\"}"`,
+        id: "0",
+        name: "",
+        errors: "",
+        json: JSON.stringify({
+            method: "GET",
+            url,
+            apiNode: "DE",
+            contentType: "",
+            content: "",
+            headers: "",
+            errors: "",
+            curlCmd: "",
+            codeCmd: "",
+            lang: "",
+            auth: {
+                auth: "noAuth",
+                bearerToken: "",
+                basicUsername: "",
+                basicPassword: "",
+                customHeader: "",
+                encrypted: "",
+            },
+            compare: false,
+            idnUrl: url,
+        }),
+        deviceId: "",
+        sessionId: "",
     });
 
-    return (data as any).Content;
+    return {
+        data: (data as any).Content,
+    };
 };

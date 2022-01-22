@@ -2,8 +2,8 @@ import { BASE_URL, USER_AGENT } from "./constants";
 import { AxiosVideos } from "./types";
 import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
 import { between, bypassGogo, http } from "./utils";
-import axios from "axios";
 import cheerio from "cheerio";
+import axios from "redaxios";
 import { URL } from "url";
 
 const search = async (key: string) => {
