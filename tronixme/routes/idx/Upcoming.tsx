@@ -1,7 +1,8 @@
 import { Box, Chip, Divider, Paper, Stack, Typography, useTheme } from "@mui/material";
 import type { Upcoming as UpcomingEpisodes } from "animedao";
-import Image from "next/image";
 import useSWR from "swr";
+
+import { ResponsiveImage } from "@components";
 
 export default function Upcoming() {
     const theme = useTheme();
@@ -21,16 +22,13 @@ export default function Upcoming() {
                         </Divider>
                         <Stack flexDirection="row" my={4}>
                             <Box flex={1}>
-                                <Box
-                                    borderRadius={`${theme.shape.borderRadius}px`}
-                                    overflow="hidden"
-                                    position="relative"
-                                    width="100%"
-                                    height="100%"
-                                    minHeight={100}
-                                >
-                                    <Image src={img} layout="fill" objectFit="cover" />
-                                </Box>
+                                <ResponsiveImage
+                                    props={{
+                                        borderRadius: `${theme.shape.borderRadius}px`,
+                                        minHeight: 100,
+                                    }}
+                                    src={img}
+                                />
                             </Box>
 
                             <Box width="70%" ml={2}>

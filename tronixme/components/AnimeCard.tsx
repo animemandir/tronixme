@@ -9,9 +9,10 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
+
+import { ResponsiveImage } from "@components";
 
 interface AnimeCardProps {
     title: string;
@@ -30,9 +31,7 @@ export const AnimeCard = memo(
             <Link href={url} passHref>
                 <Box width="100%" height="100%" display="flex">
                     <CardMedia sx={{ flex: 1 }}>
-                        <Box overflow="hidden" position="relative" width="100%" height="100%">
-                            <Image src={thumbnail} layout="fill" objectFit="cover" />
-                        </Box>
+                        <ResponsiveImage src={thumbnail} />
                     </CardMedia>
 
                     <CardContent
