@@ -23,8 +23,9 @@
             "@hooks/*": ["./hooks/*"],
             "@types": ["./types"],
             "@config": ["./config"]
-        }
+        },
+        "typeRoots": ["../node_modules/@types", "./types"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./types/video-react.d.ts"],
     "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import { recent } from "animedao";
+import { recent as getRecent, upcoming as getUpcoming } from "animedao";
 import { GetStaticProps } from "next";
 import Error from "next/error";
 import { SWRConfig } from "swr";
@@ -11,8 +11,11 @@ import Index from "@routes/idx";
 
 export const getStaticProps: GetStaticProps = () =>
     handleSSR(async () => {
+        const [recent, upcoming] = await Promise.all([getRecent(), getUpcoming()]);
+
         const fallback = {
-            "/recent": await recent(),
+            "/recent": recent,
+            "/upcoming": upcoming,
         };
 
         return {
