@@ -85,10 +85,10 @@ export default function Anime() {
                     Episodes:{" "}
                 </Typography>
                 <Stack flexDirection="row" flexWrap="wrap">
-                    {data?.episodes.map(({ date, id, name }, i) => (
+                    {data?.episodes.reverse().map(({ date, id, name }) => (
                         <Link key={id} href={`/anime/${slug}/${id}`} passHref>
                             <Button sx={{ m: 1 }} LinkComponent="a" variant="contained">
-                                {i + 1}
+                                {name}
                             </Button>
                         </Link>
                     ))}

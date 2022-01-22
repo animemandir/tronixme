@@ -2,6 +2,6 @@
 module.exports = {
     reactStrictMode: true,
     images: {
-        domains: ["animedao.to"],
+        domains: ["animedao.to", "animedao.toundefined"],
     },
 };
