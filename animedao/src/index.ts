@@ -1,21 +1,13 @@
 import { BASE_URL, USER_AGENT } from "./constants";
 import { AxiosVideos } from "./types";
 import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
-import { between, bypassGogo } from "./utils";
+import { between, bypassGogo, http } from "./utils";
 import axios from "axios";
 import cheerio from "cheerio";
 import { URL } from "url";
 
-axios.defaults.headers.common = {
-    "User-Agent": USER_AGENT,
-    Cookie: "__cf_bm=0i4rbYc32I6qaXiHV6fllKO6G8POuZmKh8RHLOuJ8uM-1642858461-0-ATth1+ZaBql00qmXRbCSdv0N0OUby+wUOIkKbH6NZ1XovwJGiozqzPbxCE6RwFR3LLeiTlRVok2XBcoS2+P3SkFo+ictKAZMuRZG/4qGTfG8BMRK/0jT7+aLizKYYUUyrQ==",
-    Referer: "https://animedao.to/",
-};
-
 const search = async (key: string) => {
-    const { data: res } = await axios.get(
-        `${BASE_URL}/search/?search=${encodeURIComponent(key)}`
-    );
+    const { data: res } = await http(`${BASE_URL}/search/?search=${encodeURIComponent(key)}`);
 
     const $ = cheerio.load(res);
     const anime = $("div.col-xs-12.col-sm-6.col-md-6.col-lg-4");
@@ -36,7 +28,7 @@ const search = async (key: string) => {
 };
 
 const getAnime = async (slug: string) => {
-    const { data: res } = await axios.get(`${BASE_URL}/anime/${slug}`);
+    const { data: res } = await http(`${BASE_URL}/anime/${slug}`);
 
     const $ = cheerio.load(res);
     const episodes = [] as Episodes[];
@@ -73,13 +65,13 @@ const getAnime = async (slug: string) => {
 };
 
 const getVideo = async (id: string | number) => {
-    const { data } = await axios.get(`${BASE_URL}/view/${id}/`);
+    const { data } = await http(`${BASE_URL}/view/${id}/`);
     const raw = between(`vidstream").innerHTML = '<iframe src="`, `" scrolling="no"`, data);
 
-    const { data: iframe } = await axios.get(`${BASE_URL}${raw}`);
+    const { data: iframe } = await http(`${BASE_URL}${raw}`);
     const url = new URL("https:" + between(`<iframe src="`, `" scrolling="no"`, iframe));
 
-    const { data: html } = await axios.get(url.href);
+    const { data: html } = await http(url.href);
 
     const $ = cheerio.load(html);
     const params = bypassGogo($, url.searchParams.get("id") || "");
@@ -99,7 +91,7 @@ const getVideo = async (id: string | number) => {
 };
 
 const recent = async () => {
-    const { data } = await axios.get(BASE_URL);
+    const { data } = await http(BASE_URL);
     const $ = cheerio.load(data);
 
     const episodes: RecentEpisodes[] = [];
@@ -122,7 +114,7 @@ const recent = async () => {
 };
 
 const upcoming = async () => {
-    const { data } = await axios.get("https://animedao.to/");
+    const { data } = await http("https://animedao.to/");
     const $ = cheerio.load(data);
 
     const episodes: Upcoming[] = [];
