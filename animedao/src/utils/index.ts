@@ -57,7 +57,18 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
 export const http = <T = any>(url: string) => {
     return axios.get<T>(url, {
         headers: {
-            "user-agent": USER_AGENT,
+            host: "animedao.to",
+            "user-agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)",
+            "accept-encoding": "gzip",
+            "cdn-loop": "cloudflare",
+            "cf-connecting-ip": "35.227.62.178",
+            "cf-ipcountry": "US",
+            "cf-ray": "6d221e007e701873-VNO",
+            "cf-visitor": '{"scheme":"https"}',
+            "cf-warp-tag-id": "5f6329da-142f-472f-9abf-eb1d60e0c9c8",
+            connection: "keep-alive",
+            "x-forwarded-for": "35.227.62.178",
+            "x-forwarded-proto": "https",
         },
     });
 };
