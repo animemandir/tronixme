@@ -53,37 +53,6 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
 };
 
 export const http = async <T = any>(url: string) => {
-    const { data } = await axios.post<T>("https://apide.reqbin.com/api/v1/requests", {
-        id: "0",
-        name: "",
-        errors: "",
-        json: JSON.stringify({
-            method: "GET",
-            url,
-            apiNode: "DE",
-            contentType: "",
-            content: "",
-            headers: "",
-            errors: "",
-            curlCmd: "",
-            codeCmd: "",
-            lang: "",
-            auth: {
-                auth: "noAuth",
-                bearerToken: "",
-                basicUsername: "",
-                basicPassword: "",
-                customHeader: "",
-                encrypted: "",
-            },
-            compare: false,
-            idnUrl: url,
-        }),
-        deviceId: "",
-        sessionId: "",
-    });
-
-    return {
-        data: (data as any).Content,
-    };
+    const { data } = await axios.get<T>(url);
+    return data;
 };

@@ -1,10 +1,11 @@
-import { BASE_URL, USER_AGENT } from "./constants";
-import { AxiosVideos } from "./types";
-import { Anime, SearchAnime, Episodes, RecentEpisodes, Upcoming } from "./types";
-import { between, bypassGogo, http } from "./utils";
 import cheerio from "cheerio";
 import axios from "redaxios";
 import { URL } from "url";
+
+import { BASE_URL, USER_AGENT } from "./constants";
+import { AxiosVideos } from "./types";
+import { Anime, Episodes, RecentEpisodes, SearchAnime, Upcoming } from "./types";
+import { between, bypassGogo, http } from "./utils";
 
 const search = async (key: string) => {
     const { data: res } = await http(`${BASE_URL}/search/?search=${encodeURIComponent(key)}`);
@@ -46,7 +47,7 @@ const getAnime = async (slug: string) => {
     const prequelEl = card.find("div.row").children().first();
     const sequelEl = card.find("div.row").children().eq(1);
 
-    let anime: Anime = {
+    const anime: Anime = {
         episodes,
         img: BASE_URL + $(".col-lg-4 > center:nth-child(1) > img:nth-child(1)").attr("src"),
         title: $(".col-lg-8 > h2:nth-child(1) > b:nth-child(1)").text().trim(),
@@ -99,10 +100,10 @@ const getAnime = async (slug: string) => {
 
 const getVideo = async (id: string | number) => {
     const { data } = await http(`${BASE_URL}/view/${id}/`);
-    const raw = between(`vidstream").innerHTML = '<iframe src="`, `" scrolling="no"`, data);
+    const raw = between('vidstream").innerHTML = \'<iframe src="', '" scrolling="no"', data);
 
     const { data: iframe } = await http(`${BASE_URL}${raw}`);
-    const url = new URL("https:" + between(`<iframe src="`, `" scrolling="no"`, iframe));
+    const url = new URL("https:" + between('<iframe src="', '" scrolling="no"', iframe));
 
     const { data: html } = await http(url.href);
 
