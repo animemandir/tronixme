@@ -2,6 +2,8 @@ import type { CheerioAPI } from "cheerio";
 import CryptoJS from "crypto-js";
 import axios from "redaxios";
 
+import { USER_AGENT } from "../constants";
+
 export const between = (a: string, b: string, str: string) => {
     return str.slice(str.indexOf(a) + a.length, b ? str.indexOf(b) : str.length);
 };
@@ -52,7 +54,10 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
     );
 };
 
-export const http = async <T = any>(url: string) => {
-    const { data } = await axios.get<T>(url);
-    return data;
+export const http = <T = any>(url: string) => {
+    return axios.get<T>(url, {
+        headers: {
+            "user-agent": USER_AGENT,
+        },
+    });
 };
