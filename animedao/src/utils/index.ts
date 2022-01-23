@@ -1,5 +1,4 @@
 import type { CheerioAPI } from "cheerio";
-import cloudscraper from "cloudscraper";
 import CryptoJS from "crypto-js";
 import axios from "redaxios";
 
@@ -54,12 +53,5 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
 };
 
 export const http = <T = any>(url: string): any => {
-    return new Promise((resolve, reject) => {
-        cloudscraper({
-            method: "GET",
-            url,
-        })
-            .then((data: any) => resolve({ data }))
-            .catch((error: any) => reject(error));
-    });
+    return axios.get<T>(url);
 };
