@@ -2,6 +2,7 @@ export interface Episodes {
     name: string;
     id: string;
     date: string;
+    description: string;
 }
 
 export interface Upcoming {
