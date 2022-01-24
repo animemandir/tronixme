@@ -3,6 +3,7 @@ import {
     Card,
     CardActionArea,
     CardContent,
+    CardMedia,
     Chip,
     Grid,
     Paper,
@@ -25,11 +26,12 @@ export default function Info() {
     return (
         <Stack p={2} component={Paper} justifyContent="center" alignItems="center">
             <Grid container spacing={2}>
-                <Grid item xs={12} md={3} height={500}>
+                <Grid item xs={12} md={3} minHeight={500}>
                     {data?.img && (
                         <ResponsiveImage
                             props={{
                                 overflow: "hidden",
+                                flex: 1,
                                 borderRadius: `${theme.shape.borderRadius}px`,
                             }}
                             src={data.img}
@@ -91,21 +93,16 @@ export default function Info() {
                                 ).map(key => (
                                     <Box key={key}>
                                         <Card variant="outlined" component={CardActionArea}>
-                                            <CardContent
-                                                sx={{
-                                                    display: "flex",
-                                                    height: "100%",
-                                                    width: "100%",
-                                                }}
-                                            >
-                                                <Box>
-                                                    <Typography variant="body2">
-                                                        {key.toUpperCase()}
-                                                    </Typography>
-                                                    <Typography variant="body2">
-                                                        {data.relations[key]?.title}
-                                                    </Typography>
-                                                </Box>
+                                            <CardMedia sx={{ height: 100 }}>
+                                                <ResponsiveImage
+                                                    src={data.relations[key]?.img || ""}
+                                                />
+                                            </CardMedia>
+                                            <CardContent>
+                                                <Typography>{key.toUpperCase()}</Typography>
+                                                <Typography variant="body2">
+                                                    {data.relations[key]?.title}
+                                                </Typography>
                                             </CardContent>
                                         </Card>
                                     </Box>
