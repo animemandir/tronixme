@@ -12,7 +12,7 @@ export default function Anime() {
     const { data } = useSWR<AxiosAnime>(slug ? `/anime/${slug}` : null);
 
     return (
-        <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Container maxWidth="xl" sx={{ my: 4 }}>
             <Head>
                 <title>{data?.title}</title>
             </Head>

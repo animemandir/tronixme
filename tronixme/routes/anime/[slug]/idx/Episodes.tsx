@@ -23,13 +23,17 @@ export default function Episodes() {
             </Typography>
 
             <Grid container spacing={3}>
-                {data?.episodes.reverse().map(({ date, id, name, description }) => (
+                {data?.episodes.map(({ date, id, name, description }) => (
                     <Grid item xs={12} sm={6} md={4} key={id}>
                         <Link key={id} href={`/anime/${slug}/${id}`} passHref>
                             <Card component={CardActionArea} variant="outlined">
                                 <CardContent>
                                     <Typography fontWeight={900}>{name}</Typography>
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
                                         {description}
                                     </Typography>
                                     <Typography align="right" variant="caption" component="p">

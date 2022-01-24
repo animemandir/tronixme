@@ -15,7 +15,7 @@ export function Topbar() {
 
     return (
         <AppBar position="relative">
-            <Container maxWidth="lg">
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Link href="/" passHref>
                         <Button LinkComponent="a" color="primary" startIcon={<HomeIcon />}>

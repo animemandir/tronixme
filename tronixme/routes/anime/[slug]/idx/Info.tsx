@@ -1,4 +1,16 @@
-import { Chip, Grid, Paper, Rating, Stack, Typography, useTheme } from "@mui/material";
+import {
+    Box,
+    Card,
+    CardActionArea,
+    CardContent,
+    Chip,
+    Grid,
+    Paper,
+    Rating,
+    Stack,
+    Typography,
+    useTheme,
+} from "@mui/material";
 import type { Anime as AxiosAnime } from "animedao";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -13,7 +25,7 @@ export default function Info() {
     return (
         <Stack p={2} component={Paper} justifyContent="center" alignItems="center">
             <Grid container spacing={2}>
-                <Grid item xs={12} md={4} height={500}>
+                <Grid item xs={12} md={3} height={500}>
                     {data?.img && (
                         <ResponsiveImage
                             props={{
@@ -65,6 +77,42 @@ export default function Info() {
                             {data?.description}
                         </Typography>
                     </Typography>
+
+                    {data?.relations && JSON.stringify(data?.relations) !== "{}" && (
+                        <Stack>
+                            <Typography mt={2} gutterBottom>
+                                Relations:
+                            </Typography>
+                            <Stack flexDirection="row">
+                                {(
+                                    Object.keys(data.relations || {}) as any as Array<
+                                        keyof typeof data.relations
+                                    >
+                                ).map(key => (
+                                    <Box key={key}>
+                                        <Card variant="outlined" component={CardActionArea}>
+                                            <CardContent
+                                                sx={{
+                                                    display: "flex",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <Box>
+                                                    <Typography variant="body2">
+                                                        {key.toUpperCase()}
+                                                    </Typography>
+                                                    <Typography variant="body2">
+                                                        {data.relations[key]?.title}
+                                                    </Typography>
+                                                </Box>
+                                            </CardContent>
+                                        </Card>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </Stack>
+                    )}
                 </Grid>
             </Grid>
         </Stack>

@@ -19,14 +19,23 @@ interface AnimeCardProps {
     ep?: string;
     thumbnail: string;
     url: string;
-    date: string;
-    description: string;
-    hot: boolean;
+    date?: string;
+    description?: string;
+    hot?: boolean;
     slug: string;
 }
 
 export const AnimeCard = memo(
-    ({ ep = "", thumbnail, title, url, date, description, hot, slug }: AnimeCardProps) => (
+    ({
+        ep = "",
+        thumbnail,
+        title,
+        url,
+        date = "",
+        description = "",
+        hot = false,
+        slug,
+    }: AnimeCardProps) => (
         <Card variant="outlined" component={CardActionArea}>
             <Link href={url} passHref>
                 <Box width="100%" height="100%" display="flex">
