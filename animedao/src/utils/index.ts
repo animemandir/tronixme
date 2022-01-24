@@ -53,5 +53,5 @@ export const bypassGogo = ($: CheerioAPI, id: string) => {
 };
 
 export const http = <T = any>(url: string): any => {
-    return axios.get<T>(`https://proxy.tronikel-apps.com/?url=${url}`);
+    return axios.get<T>(`https://proxy.tronikel-apps.com/?url=${encodeURIComponent(url)}`);
 };
