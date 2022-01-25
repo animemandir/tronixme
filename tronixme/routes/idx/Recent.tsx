@@ -1,12 +1,12 @@
 import InfoIcon from "@mui/icons-material/Info";
 import { Grid, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
-import type { RecentEpisodes } from "animedao";
+import type { AxiosRecent } from "animedao";
 import useSWR from "swr";
 
 import { AnimeCard } from "@components";
 
 export default function Recent() {
-    const { data = [] } = useSWR<RecentEpisodes[]>("/recent");
+    const { data = [] } = useSWR<AxiosRecent[]>("/recent");
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -8,7 +8,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import type { SearchAnime } from "animedao";
+import type { AxiosSearch } from "animedao";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -20,7 +20,7 @@ export default function Search() {
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { data = [] } = useSWR<SearchAnime[]>(`/search?q=${q}`);
+    const { data = [] } = useSWR<AxiosSearch[]>(`/search?q=${q}`);
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>

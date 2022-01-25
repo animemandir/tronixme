@@ -1,12 +1,12 @@
 import { Box, Chip, Divider, Paper, Stack, Typography, useTheme } from "@mui/material";
-import type { Upcoming as UpcomingEpisodes } from "animedao";
+import type { AxiosUpcoming } from "animedao";
 import useSWR from "swr";
 
 import { ResponsiveImage } from "@components";
 
 export default function Upcoming() {
     const theme = useTheme();
-    const { data = [] } = useSWR<UpcomingEpisodes[]>("/upcoming");
+    const { data = [] } = useSWR<AxiosUpcoming[]>("/upcoming");
 
     return (
         <Stack component={Paper} p={2}>

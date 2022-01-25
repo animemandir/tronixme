@@ -1,10 +1,10 @@
-import { recent } from "animedao";
+import { getRecent } from "animedao";
 import type { NextApiRequest as Request, NextApiResponse as Response } from "next";
 
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
-    res.status(200).json(await recent());
+    res.status(200).json(await getRecent());
 };
 
 export default async function handler(req: Request, res: Response) {

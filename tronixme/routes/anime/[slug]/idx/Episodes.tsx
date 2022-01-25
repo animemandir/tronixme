@@ -7,7 +7,7 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import type { Anime as AxiosAnime } from "animedao";
+import type { AxiosAnime } from "animedao";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";

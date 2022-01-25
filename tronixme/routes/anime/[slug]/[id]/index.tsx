@@ -1,13 +1,17 @@
-import { Container } from "@mui/material";
-import { useRouter } from "next/router";
+import { Container, Grid, Stack } from "@mui/material";
 
 import Player from "./Player";
 
 export default function Episode() {
-    const { id } = useRouter().query;
     return (
-        <Container maxWidth="lg">
-            <Player />
+        <Container maxWidth="xl">
+            <Grid container spacing={4}>
+                <Grid item xs={12}>
+                    <Stack height={600}>
+                        <Player />
+                    </Stack>
+                </Grid>
+            </Grid>
         </Container>
     );
 }

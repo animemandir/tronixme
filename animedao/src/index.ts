@@ -3,17 +3,17 @@ import axios from "redaxios";
 import { URL } from "url";
 
 import { BASE_URL, USER_AGENT } from "./constants";
-import { AxiosVideos } from "./types";
-import { Anime, Episodes, RecentEpisodes, SearchAnime, Upcoming } from "./types";
+import { AxiosEpisode, AxiosVideos } from "./types";
+import { AxiosAnime, AxiosRecent, AxiosSearch, AxiosUpcoming, Episodes } from "./types";
 import { between, bypassGogo, http } from "./utils";
 
-const search = async (key: string) => {
+const getSearch = async (key: string) => {
     const { data: res } = await http(`${BASE_URL}/search/?search=${encodeURIComponent(key)}`);
 
     const $ = cheerio.load(res);
     const anime = $("div.col-xs-12.col-sm-6.col-md-6.col-lg-4");
 
-    const data = [] as SearchAnime[];
+    const data = [] as AxiosSearch[];
 
     anime.each((i, el) => {
         data.push({
@@ -48,7 +48,7 @@ const getAnime = async (slug: string) => {
     const prequelEl = card.find("div.row").children().first();
     const sequelEl = card.find("div.row").children().eq(1);
 
-    const anime: Anime = {
+    const anime: AxiosAnime = {
         episodes,
         img: BASE_URL + $(".col-lg-4 > center:nth-child(1) > img:nth-child(1)").attr("src"),
         title: $(".col-lg-8 > h2:nth-child(1) > b:nth-child(1)").text().trim(),
@@ -99,7 +99,7 @@ const getAnime = async (slug: string) => {
     return anime;
 };
 
-const getVideo = async (id: string | number) => {
+const getEpisode = async (id: string | number) => {
     const { data } = await http(`${BASE_URL}/view/${id}/`);
     const raw = between('vidstream").innerHTML = \'<iframe src="', '" scrolling="no"', data);
 
@@ -108,8 +108,7 @@ const getVideo = async (id: string | number) => {
 
     const { data: html } = await http(url.href);
 
-    const $ = cheerio.load(html);
-    const params = bypassGogo($, url.searchParams.get("id") || "");
+    const params = bypassGogo(cheerio.load(html), url.searchParams.get("id") || "");
 
     const { data: videos } = await axios.get<AxiosVideos>(
         `${url.protocol}//${url.hostname}/encrypt-ajax.php?${params}`,
@@ -122,14 +121,29 @@ const getVideo = async (id: string | number) => {
         }
     );
 
-    return videos;
+    const $ = cheerio.load(data);
+
+    const epText = $(
+        ".episode_title_table > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2) > h2:nth-child(1)"
+    )
+        .text()
+        .toLowerCase();
+
+    const ep = Number(epText.slice(epText.indexOf("episode")).replace(/[^0-9.]/g, ""));
+
+    const result: AxiosEpisode = {
+        videos,
+        ep,
+    };
+
+    return result;
 };
 
-const recent = async () => {
+const getRecent = async () => {
     const { data } = await http(BASE_URL);
     const $ = cheerio.load(data);
 
-    const episodes: RecentEpisodes[] = [];
+    const episodes: AxiosRecent[] = [];
 
     $("#new > div").each((_, el) => {
         const episode = between("( Episode", ")", $(el).find("a:nth-child(1)").text()).trim();
@@ -154,11 +168,11 @@ const recent = async () => {
     return episodes;
 };
 
-const upcoming = async () => {
+const getUpcoming = async () => {
     const { data } = await http("https://animedao.to/");
     const $ = cheerio.load(data);
 
-    const episodes: Upcoming[] = [];
+    const episodes: AxiosUpcoming[] = [];
 
     $("#ongoing > div:nth-child(1)")
         .find(".well.ongoingtab")
@@ -174,5 +188,5 @@ const upcoming = async () => {
     return episodes;
 };
 
-export { search, getAnime, getVideo, recent, upcoming };
+export { getSearch, getAnime, getEpisode, getRecent, getUpcoming };
 export * from "./types";

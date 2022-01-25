@@ -5,14 +5,14 @@ export interface Episodes {
     description: string;
 }
 
-export interface Upcoming {
+export interface AxiosUpcoming {
     title: string;
     when: string;
     img: string;
     alternative: string;
 }
 
-export interface RecentEpisodes {
+export interface AxiosRecent {
     date: string;
     anime: string;
     description: string;
@@ -23,7 +23,7 @@ export interface RecentEpisodes {
     slug: string;
 }
 
-export interface Anime {
+export interface AxiosAnime {
     episodes: Episodes[];
     img: string;
     title: string;
@@ -47,7 +47,7 @@ export interface Relation {
     img: string;
 }
 
-export interface SearchAnime {
+export interface AxiosSearch {
     title: string;
     slug: string;
     year: string;
@@ -63,6 +63,11 @@ export interface AxiosVideos {
     track: any[];
     advertising: any[];
     linkiframe: string;
+}
+
+export interface AxiosEpisode {
+    videos: AxiosVideos;
+    ep: number;
 }
 
 export interface Source {

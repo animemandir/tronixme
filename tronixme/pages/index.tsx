@@ -1,4 +1,4 @@
-import { recent as getRecent, upcoming as getUpcoming } from "animedao";
+import { getRecent, getUpcoming } from "animedao";
 import { GetStaticProps } from "next";
 import Error from "next/error";
 import { SWRConfig } from "swr";

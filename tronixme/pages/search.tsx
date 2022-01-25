@@ -1,4 +1,4 @@
-import { search } from "animedao";
+import { getSearch } from "animedao";
 import { GetServerSideProps } from "next";
 import Error from "next/error";
 import { SWRConfig } from "swr";
@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = ({ query }) =>
         const { q } = query;
 
         const fallback = {
-            [`/search?q=${q}`]: await search(String(q)),
+            [`/search?q=${q}`]: await getSearch(String(q)),
         };
 
         return { props: { fallback } };

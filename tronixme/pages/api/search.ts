@@ -1,11 +1,11 @@
-import { search } from "animedao";
+import { getSearch } from "animedao";
 import type { NextApiRequest as Request, NextApiResponse as Response } from "next";
 
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
     const { q } = req.query;
-    res.status(200).json(await search(String(q)));
+    res.status(200).json(await getSearch(String(q)));
 };
 
 export default async function handler(req: Request, res: Response) {
