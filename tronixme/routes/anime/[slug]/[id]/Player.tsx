@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import type { AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -17,18 +17,20 @@ export default function Player() {
     }, [data]);
 
     return (
-        <Box position="relative" pt={1920 / 1080} flex={1}>
-            <ReactPlayer
-                style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                }}
-                controls
-                width="100%"
-                height="100%"
-                url={url}
-            />
-        </Box>
+        <Stack component={Paper} p={2} flex={1}>
+            <Box position="relative" flex={1}>
+                <ReactPlayer
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                    }}
+                    controls
+                    width="100%"
+                    height="100%"
+                    url={url}
+                />
+            </Box>
+        </Stack>
     );
 }
