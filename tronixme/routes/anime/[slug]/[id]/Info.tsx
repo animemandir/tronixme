@@ -11,22 +11,24 @@ export default function Info() {
     const { data: ep } = useSWR<AxiosEpisode>(`/episode/${id}`);
 
     return (
-        <Stack component={Paper} p={2} height="100%">
+        <Stack component={Paper} p={2} height="100%" overflow="hidden">
             <Typography align="center" my={2} variant="h6">
                 {anime?.title}
             </Typography>
 
-            <Stack overflow="auto" minHeight={300} maxHeight={400} flex={1}>
-                {anime?.episodes.map((episode, i) => (
-                    <Box key={episode.id} my={1}>
-                        <Episode
-                            {...episode}
-                            key={episode.id}
-                            slug={String(slug)}
-                            selected={ep?.ep === 2}
-                        />
-                    </Box>
-                ))}
+            <Stack overflow="auto" flex="1 1 300px">
+                <Box>
+                    {anime?.episodes.map((episode, i) => (
+                        <Box minHeight={0} key={episode.id} my={2}>
+                            <Episode
+                                {...episode}
+                                key={episode.id}
+                                slug={String(slug)}
+                                selected={ep?.ep === i + 1}
+                            />
+                        </Box>
+                    ))}
+                </Box>
             </Stack>
         </Stack>
     );
