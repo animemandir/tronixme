@@ -1,4 +1,3 @@
-import { Box, Paper, Stack } from "@mui/material";
 import type { AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
 import Plyr from "plyr-react";
@@ -18,7 +17,7 @@ export default function Player() {
             const size = label.replace(/\D/g, "");
             return {
                 src: file,
-                size: size || undefined,
+                size: Number(size) || undefined,
             } as any;
         });
     }, [data]);
