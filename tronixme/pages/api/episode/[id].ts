@@ -1,10 +1,10 @@
-import { getVideo } from "animedao";
+import { getEpisode } from "animedao";
 import type { NextApiRequest as Request, NextApiResponse as Response } from "next";
 
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
-    res.status(200).json(await getVideo(String(req.query.id)));
+    res.status(200).json(await getEpisode(String(req.query.id)));
 };
 
 export default async function handler(req: Request, res: Response) {
