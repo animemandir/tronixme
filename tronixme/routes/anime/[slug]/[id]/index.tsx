@@ -14,7 +14,7 @@ export default function Episode() {
     const { data: episode } = useSWR<AxiosEpisode>(`/episode/${id}`);
 
     return (
-        <Container component={Stack} maxWidth="xl" sx={{ my: 4 }}>
+        <Container maxWidth="xl" sx={{ my: 4 }}>
             <Breadcrumbs separator={<NavigateNextIcon />}>
                 <NextLink href="/" passHref>
                     <MuiLink color="inherit" underline="none">
@@ -33,11 +33,9 @@ export default function Episode() {
 
             <Grid container spacing={2} mt={1}>
                 <Grid item xs={12} lg={9}>
-                    <Stack height={600}>
-                        <Player />
-                    </Stack>
+                    <Player />
                 </Grid>
-                <Grid item xs>
+                <Grid item xs overflow="hidden" flex={1}>
                     <Info />
                 </Grid>
             </Grid>

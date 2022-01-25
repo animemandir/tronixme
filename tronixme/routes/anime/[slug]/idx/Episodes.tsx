@@ -1,16 +1,9 @@
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    Grid,
-    Paper,
-    Stack,
-    Typography,
-} from "@mui/material";
+import { Grid, Paper, Stack, Typography } from "@mui/material";
 import type { AxiosAnime } from "animedao";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+
+import { Episode } from "@components";
 
 export default function Episodes() {
     const { slug } = useRouter().query;
@@ -23,25 +16,9 @@ export default function Episodes() {
             </Typography>
 
             <Grid container spacing={3}>
-                {data?.episodes.map(({ date, id, name, description }) => (
-                    <Grid item xs={12} sm={6} md={4} key={id}>
-                        <Link key={id} href={`/anime/${slug}/${id}`} passHref>
-                            <Card component={CardActionArea} variant="outlined">
-                                <CardContent>
-                                    <Typography fontWeight={900}>{name}</Typography>
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        gutterBottom
-                                    >
-                                        {description}
-                                    </Typography>
-                                    <Typography align="right" variant="caption" component="p">
-                                        {date}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Link>
+                {data?.episodes.map(episode => (
+                    <Grid item xs={12} sm={6} md={4} key={episode.id}>
+                        <Episode {...episode} slug={String(slug)} />
                     </Grid>
                 ))}
             </Grid>

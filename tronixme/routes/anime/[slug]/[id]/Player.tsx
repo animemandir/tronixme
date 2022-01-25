@@ -1,36 +1,34 @@
 import { Box, Paper, Stack } from "@mui/material";
 import type { AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
+import Plyr from "plyr-react";
+import "plyr-react/dist/plyr.css";
 import { useMemo } from "react";
-import ReactPlayer from "react-player";
 import useSWR from "swr/immutable";
 
 export default function Player() {
     const { id } = useRouter().query;
     const { data } = useSWR<AxiosEpisode>(id ? `/episode/${id}` : null);
 
-    const url = useMemo(() => {
-        if (!data) return;
+    const sources = useMemo(() => {
+        if (!data) return [];
         const { videos } = data;
         // 1080p
-        return videos.source[videos.source.length - 2].file;
+        return videos.source.map(({ file, label }) => {
+            const size = label.replace(/\D/g, "");
+            return {
+                src: file,
+                size: size || undefined,
+            } as any;
+        });
     }, [data]);
 
     return (
-        <Stack component={Paper} p={2} flex={1}>
-            <Box position="relative" flex={1}>
-                <ReactPlayer
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                    }}
-                    controls
-                    width="100%"
-                    height="100%"
-                    url={url}
-                />
-            </Box>
-        </Stack>
+        <Plyr
+            source={{
+                type: "video",
+                sources,
+            }}
+        />
     );
 }
