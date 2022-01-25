@@ -10,21 +10,26 @@ export default function Info() {
     const { data: anime } = useSWR<AxiosAnime>(`/anime/${slug}`);
     const { data: ep } = useSWR<AxiosEpisode>(`/episode/${id}`);
 
+    const selected = (name: string, ep: number) => {
+        const index = name.toLowerCase().indexOf("episode");
+        return name.slice(index).includes(String(ep));
+    };
+
     return (
-        <Stack component={Paper} p={2} height="100%" overflow="hidden">
+        <Stack component={Paper} p={2} height="100%">
             <Typography align="center" my={2} variant="h6">
                 {anime?.title}
             </Typography>
 
             <Stack overflow="auto" flex="1 1 300px">
                 <Box>
-                    {anime?.episodes.map((episode, i) => (
-                        <Box minHeight={0} key={episode.id} my={2}>
+                    {anime?.episodes.map(episode => (
+                        <Box minHeight={0} key={episode.id} my={2} mx={1}>
                             <Episode
                                 {...episode}
                                 key={episode.id}
                                 slug={String(slug)}
-                                selected={ep?.ep === i + 1}
+                                selected={selected(episode.name, ep?.ep || -1)}
                             />
                         </Box>
                     ))}

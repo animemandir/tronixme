@@ -24,7 +24,14 @@ export const Episode = memo(
     }: EpisodeProps) => {
         return (
             <Link key={id} href={`/anime/${slug}/${id}`} passHref>
-                <Card component={CardActionArea} variant={variant}>
+                <Card
+                    component={CardActionArea}
+                    variant={variant}
+                    sx={{
+                        bgcolor: theme =>
+                            selected ? theme.palette.action.selected : undefined,
+                    }}
+                >
                     <CardContent>
                         <Typography fontWeight={900}>{name}</Typography>
                         <Typography variant="body2" color="text.secondary" gutterBottom>

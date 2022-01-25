@@ -35,7 +35,7 @@ export default function Episode() {
                 <Grid item xs={12} lg={9}>
                     <Player />
                 </Grid>
-                <Grid item xs overflow="hidden" flex={1}>
+                <Grid item xs>
                     <Info />
                 </Grid>
             </Grid>
