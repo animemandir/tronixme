@@ -52,7 +52,7 @@ export const AnimeCard = memo(
                             textOverflow="ellipsis"
                             gutterBottom
                         >
-                            {description || title}
+                            {title || description}
                         </Typography>
                         <Stack flexDirection="row" flexWrap="wrap">
                             {/\d/.test(ep) && (
@@ -68,7 +68,7 @@ export const AnimeCard = memo(
                                 color="text.secondary"
                                 mt={1}
                             >
-                                {title || description}
+                                {description || title}
                             </Typography>
                         </Link>
                     </CardContent>

@@ -27,9 +27,9 @@ export default function Recent() {
                             slug={slug}
                             ep={episode}
                             thumbnail={img}
-                            title={anime}
+                            title={description}
                             date={date}
-                            description={description}
+                            description={anime}
                             hot={hot}
                         />
                     </Grid>

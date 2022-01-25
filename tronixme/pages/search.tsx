@@ -1,22 +1,20 @@
+import { search } from "animedao";
 import { GetServerSideProps } from "next";
 import Error from "next/error";
 import { SWRConfig } from "swr";
 
 import { PageProps } from "@types";
 
-import { axiosSSR, handleSSR } from "@utils";
+import { handleSSR } from "@utils";
 
 import Search from "@routes/search";
 
-export const getServerSideProps: GetServerSideProps = ({ req, query }) =>
+export const getServerSideProps: GetServerSideProps = ({ query }) =>
     handleSSR(async () => {
-        const { host } = req.headers;
         const { q } = query;
 
-        const { data: anime } = await axiosSSR(`/anime/search?q=${q}`, String(host));
-
         const fallback = {
-            [`/anime/search?q=${q}`]: anime,
+            [`/search?q=${q}`]: await search(String(q)),
         };
 
         return { props: { fallback } };

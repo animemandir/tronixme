@@ -8,21 +8,19 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import type { SearchAnime } from "animedao";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-
-import { APISearch } from "@types";
 
 import { AnimeCard } from "@components";
 
 export default function Search() {
     const { q } = useRouter().query;
-
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { data = [] } = useSWR<APISearch[]>(`/anime/search?q=${q}`);
+    const { data = [] } = useSWR<SearchAnime[]>(`/search?q=${q}`);
 
     return (
         <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -42,7 +40,20 @@ export default function Search() {
                     </Typography>
                 </Stack>
 
-                <Grid container spacing={4}></Grid>
+                <Grid container spacing={4}>
+                    {data.map(({ alternative, img, slug, title, year }) => (
+                        <Grid item xs={12} sm={6} key={slug}>
+                            <AnimeCard
+                                slug={slug}
+                                thumbnail={img}
+                                title={title}
+                                date={year}
+                                description={alternative}
+                                url={`/anime/${slug}`}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
             </Paper>
         </Container>
     );
