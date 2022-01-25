@@ -4,10 +4,7 @@ import type { NextApiRequest as Request, NextApiResponse as Response } from "nex
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
-    const anime = await getAnime(String(req.query.slug));
-    anime.episodes.reverse();
-
-    res.status(200).json(anime);
+    res.status(200).json(await getAnime(String(req.query.slug)));
 };
 
 export default async function handler(req: Request, res: Response) {

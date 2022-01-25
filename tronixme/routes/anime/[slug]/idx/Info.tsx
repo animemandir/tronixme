@@ -111,7 +111,7 @@ export default function Info() {
                                                     display: "flex",
                                                 }}
                                             >
-                                                <CardMedia sx={{ flex: 1, height: 80 }}>
+                                                <CardMedia sx={{ flex: 1, height: 100 }}>
                                                     <ResponsiveImage
                                                         src={data.relations[key]?.img || ""}
                                                     />
