@@ -13,6 +13,7 @@ import {
     useTheme,
 } from "@mui/material";
 import type { Anime as AxiosAnime } from "animedao";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -66,6 +67,13 @@ export default function Info() {
                         </Typography>
                     </Typography>
 
+                    <Typography>
+                        <Typography component="span">Rating: </Typography>
+                        <Typography color="text.secondary" component="span" variant="body2">
+                            {data?.rating}
+                        </Typography>
+                    </Typography>
+
                     <Stack flexDirection="row" flexWrap="wrap" alignItems="center" my={2}>
                         <Typography mr={0.5}>Genres:</Typography>
                         {data?.genres.map(genre => (
@@ -85,26 +93,39 @@ export default function Info() {
                             <Typography mt={2} gutterBottom>
                                 Relations:
                             </Typography>
-                            <Stack flexDirection="row">
+                            <Stack>
                                 {(
                                     Object.keys(data.relations || {}) as any as Array<
                                         keyof typeof data.relations
                                     >
                                 ).map(key => (
-                                    <Box key={key}>
-                                        <Card variant="outlined" component={CardActionArea}>
-                                            <CardMedia sx={{ height: 100 }}>
-                                                <ResponsiveImage
-                                                    src={data.relations[key]?.img || ""}
-                                                />
-                                            </CardMedia>
-                                            <CardContent>
-                                                <Typography>{key.toUpperCase()}</Typography>
-                                                <Typography variant="body2">
-                                                    {data.relations[key]?.title}
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
+                                    <Box key={key} flex={1} my={1}>
+                                        <Link
+                                            href={`/anime/${data.relations[key]?.slug}`}
+                                            passHref
+                                        >
+                                            <Card
+                                                variant="outlined"
+                                                component={CardActionArea}
+                                                sx={{
+                                                    display: "flex",
+                                                }}
+                                            >
+                                                <CardMedia sx={{ flex: 1, height: 80 }}>
+                                                    <ResponsiveImage
+                                                        src={data.relations[key]?.img || ""}
+                                                    />
+                                                </CardMedia>
+                                                <CardContent sx={{ flex: 6 }}>
+                                                    <Typography>
+                                                        {key.toUpperCase()}
+                                                    </Typography>
+                                                    <Typography variant="body2">
+                                                        {data.relations[key]?.title}
+                                                    </Typography>
+                                                </CardContent>
+                                            </Card>
+                                        </Link>
                                     </Box>
                                 ))}
                             </Stack>

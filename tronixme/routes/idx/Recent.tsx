@@ -12,9 +12,9 @@ export default function Recent() {
 
     return (
         <Stack component={Paper} width="100%" p={4}>
-            <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" mb={1}>
+            <Stack flexDirection="row" justifyContent="flex-start" alignItems="center" mb={2}>
                 <InfoIcon fontSize="large" />
-                <Typography gutterBottom ml={0.5} variant={mobile ? "h6" : "h5"} align="left">
+                <Typography ml={0.5} variant={mobile ? "h6" : "h5"}>
                     Recently updated
                 </Typography>
             </Stack>
