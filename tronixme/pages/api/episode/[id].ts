@@ -4,6 +4,10 @@ import type { NextApiRequest as Request, NextApiResponse as Response } from "nex
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
+    if (req.cookies.secret !== process.env.SECRET) {
+        res.status(403).json("Forbidden");
+        return;
+    }
     res.status(200).json(await getEpisode(String(req.query.id)));
 };
 

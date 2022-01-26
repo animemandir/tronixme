@@ -9,9 +9,20 @@ import { handleSSR } from "@utils";
 
 import Episode from "@routes/anime/[slug]/[id]";
 
-export const getServerSideProps: GetServerSideProps = ({ query }) =>
+export const getServerSideProps: GetServerSideProps = ({ query, req }) =>
     handleSSR(async () => {
         const { slug, id } = query;
+
+        if (req.cookies.secret !== process.env.SECRET) {
+            return {
+                props: {
+                    error: {
+                        status: 403,
+                        data: "Forbidden",
+                    },
+                },
+            };
+        }
 
         const [anime, episode] = await Promise.all([
             getAnime(String(slug)),
