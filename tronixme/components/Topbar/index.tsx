@@ -71,6 +71,7 @@ export function Topbar() {
                         <Stack flexDirection="row" flex={1}>
                             {pages.map(({ icon, title, url }) => (
                                 <Button
+                                    sx={{ mr: 1 }}
                                     onClick={() => navigate(url)}
                                     key={title}
                                     startIcon={icon}
