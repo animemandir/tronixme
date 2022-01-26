@@ -52,7 +52,7 @@ export function Topbar() {
 
     const navigate = (page: string) => {
         setOpen(false);
-        Router.push(`/${page}`);
+        Router.push(page);
     };
 
     return (
