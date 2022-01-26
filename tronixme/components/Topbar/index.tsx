@@ -1,4 +1,5 @@
 import HomeIcon from "@mui/icons-material/Home";
+import KeyIcon from "@mui/icons-material/Key";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
@@ -35,6 +36,11 @@ const pages = [
         title: "Upcoming",
         url: "/upcoming",
         icon: <WatchLaterIcon />,
+    },
+    {
+        title: "Auth",
+        url: "/auth",
+        icon: <KeyIcon />,
     },
 ];
 
