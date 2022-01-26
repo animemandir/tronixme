@@ -14,7 +14,7 @@
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "react/display-name": "off",
         "react/react-in-jsx-scope": "off",
-        "quotes": ["error", "double"],
+        "quotes": "off",
         "object-curly-spacing": ["error", "always"],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
