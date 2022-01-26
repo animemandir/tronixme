@@ -1,6 +1,6 @@
 import { Container, Grid } from "@mui/material";
 
-import Ongoing from "./OngoinG";
+import Ongoing from "./Ongoing";
 import UpcomingGrid from "./UpcomingGrid";
 
 export default function Upcoming() {
