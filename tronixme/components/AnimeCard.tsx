@@ -59,7 +59,7 @@ export const AnimeCard = memo(
                                 <Chip sx={{ m: 0.5 }} color="info" label={`Ep. ${ep}`} />
                             )}
                             {hot && <Chip sx={{ m: 0.5 }} label="Hot" color="error" />}
-                            <Chip sx={{ m: 0.5 }} label={date} />
+                            {date && <Chip sx={{ m: 0.5 }} label={date} />}
                         </Stack>
                         <Link href={`/anime/${slug}`} passHref>
                             <Typography

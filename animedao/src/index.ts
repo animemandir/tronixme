@@ -169,23 +169,52 @@ const getRecent = async () => {
 };
 
 const getUpcoming = async () => {
-    const { data } = await http("https://animedao.to/");
+    const { data } = await http(BASE_URL);
     const $ = cheerio.load(data);
 
-    const episodes: AxiosUpcoming[] = [];
+    const upcoming: AxiosUpcoming["upcoming"] = [];
+    const ongoing: AxiosUpcoming["ongoing"] = [];
 
     $("#ongoing > div:nth-child(1)")
         .find(".well.ongoingtab")
         .each((_, el) => {
-            episodes.push({
+            upcoming.push({
                 alternative: $(el).find("small").text().trim(),
                 img: BASE_URL + $(el).find("img").attr("data-src"),
                 title: $(el).find("b").text().trim(),
                 when: $(el).find(".front_time").text().trim(),
+                slug:
+                    $(el)
+                        .parent()
+                        .attr("href")
+                        ?.replace(/anime/, "")
+                        .replace(/\//g, "")
+                        .trim() || "",
             });
         });
 
-    return episodes;
+    $("#ongoing > div:nth-child(2)")
+        .find(".well.ongoingtab")
+        .each((_, el) => {
+            ongoing.push({
+                alternative: $(el).find("small").text().trim(),
+                img: BASE_URL + $(el).find("img").attr("data-src"),
+                title: $(el).find("b").text().trim(),
+                when: $(el).find(".front_time").text().trim(),
+                slug:
+                    $(el)
+                        .parent()
+                        .attr("href")
+                        ?.replace(/anime/, "")
+                        .replace(/\//g, "")
+                        .trim() || "",
+            });
+        });
+
+    return {
+        upcoming,
+        ongoing,
+    };
 };
 
 export { getSearch, getAnime, getEpisode, getRecent, getUpcoming };

@@ -6,10 +6,16 @@ export interface Episodes {
 }
 
 export interface AxiosUpcoming {
+    upcoming: Episode[];
+    ongoing: Episode[];
+}
+
+export interface Episode {
     title: string;
     when: string;
     img: string;
     alternative: string;
+    slug: string;
 }
 
 export interface AxiosRecent {

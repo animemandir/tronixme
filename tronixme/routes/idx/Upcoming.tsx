@@ -6,7 +6,7 @@ import { ResponsiveImage } from "@components";
 
 export default function Upcoming() {
     const theme = useTheme();
-    const { data = [] } = useSWR<AxiosUpcoming[]>("/upcoming");
+    const { data } = useSWR<AxiosUpcoming>("/upcoming");
 
     return (
         <Stack component={Paper} p={2}>
@@ -15,7 +15,7 @@ export default function Upcoming() {
             </Typography>
 
             <Stack>
-                {data.map(({ alternative, img, title, when }) => (
+                {data?.upcoming.map(({ alternative, img, title, when }) => (
                     <Box flex={1} key={title + alternative}>
                         <Divider textAlign="left">
                             <Chip label={when} />

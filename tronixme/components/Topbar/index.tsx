@@ -10,7 +10,7 @@ import {
     Drawer,
     IconButton,
     List,
-    ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Stack,
@@ -20,7 +20,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import dynamic from "next/dynamic";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { useState } from "react";
 
 const Search = dynamic(() => import("./Search"));
@@ -39,6 +39,7 @@ const pages = [
 ];
 
 export function Topbar() {
+    const router = useRouter();
     const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
     const [open, setOpen] = useState(false);
@@ -59,10 +60,14 @@ export function Topbar() {
                         <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
                             <List sx={{ width: "60vw", minWidth: 200 }}>
                                 {pages.map(({ icon, title, url }) => (
-                                    <ListItem button key={title} onClick={() => navigate(url)}>
+                                    <ListItemButton
+                                        selected={router.pathname === url}
+                                        key={title}
+                                        onClick={() => navigate(url)}
+                                    >
                                         <ListItemIcon>{icon}</ListItemIcon>
                                         <ListItemText primary={title} />
-                                    </ListItem>
+                                    </ListItemButton>
                                 ))}
                             </List>
                         </Drawer>
