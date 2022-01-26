@@ -4,9 +4,9 @@ import {
     Grid,
     Paper,
     Stack,
+    Theme,
     Typography,
     useMediaQuery,
-    useTheme,
 } from "@mui/material";
 import type { AxiosSearch } from "animedao";
 import Head from "next/head";
@@ -17,8 +17,7 @@ import { AnimeCard } from "@components";
 
 export default function Search() {
     const { q } = useRouter().query;
-    const theme = useTheme();
-    const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
 
     const { data = [] } = useSWR<AxiosSearch[]>(`/search?q=${q}`);
 
