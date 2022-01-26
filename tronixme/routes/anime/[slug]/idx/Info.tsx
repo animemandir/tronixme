@@ -10,7 +10,6 @@ import {
     Rating,
     Stack,
     Typography,
-    useTheme,
 } from "@mui/material";
 import type { AxiosAnime } from "animedao";
 import Link from "next/link";
@@ -21,8 +20,7 @@ import { ResponsiveImage } from "@components";
 
 export default function Info() {
     const { slug } = useRouter().query;
-    const { data } = useSWR<AxiosAnime>(slug ? `/anime/${slug}` : null);
-    const theme = useTheme();
+    const { data } = useSWR<AxiosAnime>(`/anime/${slug}`);
 
     return (
         <Stack p={2} component={Paper} justifyContent="center" alignItems="center">
@@ -33,7 +31,7 @@ export default function Info() {
                             props={{
                                 overflow: "hidden",
                                 flex: 1,
-                                borderRadius: `${theme.shape.borderRadius}px`,
+                                borderRadius: theme => `${theme.shape.borderRadius}px`,
                             }}
                             src={data.img}
                         />
@@ -88,46 +86,53 @@ export default function Info() {
                         </Typography>
                     </Typography>
 
-                    {data?.relations && JSON.stringify(data?.relations) !== "{}" && (
+                    {/** this is useless because it will be a {} which is truthy but this is just for TS */}
+                    {data?.relations && (
                         <Stack>
                             <Typography mt={2} gutterBottom>
                                 Relations:
                             </Typography>
                             <Stack>
                                 {(
-                                    Object.keys(data.relations || {}) as any as Array<
+                                    Object.keys(data?.relations || {}) as any as Array<
                                         keyof typeof data.relations
                                     >
-                                ).map(key => (
-                                    <Box key={key} flex={1} my={1}>
-                                        <Link
-                                            href={`/anime/${data.relations[key]?.slug}`}
-                                            passHref
-                                        >
-                                            <Card
-                                                variant="outlined"
-                                                component={CardActionArea}
-                                                sx={{
-                                                    display: "flex",
-                                                }}
+                                ).map(key => {
+                                    if (!data?.relations[key]) return;
+
+                                    return (
+                                        <Box key={key} flex={1} my={1}>
+                                            <Link
+                                                href={`/anime/${data.relations[key]?.slug}`}
+                                                passHref
                                             >
-                                                <CardMedia sx={{ flex: 1, height: 100 }}>
-                                                    <ResponsiveImage
-                                                        src={data.relations[key]?.img || ""}
-                                                    />
-                                                </CardMedia>
-                                                <CardContent sx={{ flex: 6 }}>
-                                                    <Typography>
-                                                        {key.toUpperCase()}
-                                                    </Typography>
-                                                    <Typography variant="body2">
-                                                        {data.relations[key]?.title}
-                                                    </Typography>
-                                                </CardContent>
-                                            </Card>
-                                        </Link>
-                                    </Box>
-                                ))}
+                                                <Card
+                                                    variant="outlined"
+                                                    component={CardActionArea}
+                                                    sx={{
+                                                        display: "flex",
+                                                    }}
+                                                >
+                                                    <CardMedia sx={{ flex: 1, height: 100 }}>
+                                                        <ResponsiveImage
+                                                            src={
+                                                                data.relations[key]?.img || ""
+                                                            }
+                                                        />
+                                                    </CardMedia>
+                                                    <CardContent sx={{ flex: 6 }}>
+                                                        <Typography>
+                                                            {key.toUpperCase()}
+                                                        </Typography>
+                                                        <Typography variant="body2">
+                                                            {data.relations[key]?.title}
+                                                        </Typography>
+                                                    </CardContent>
+                                                </Card>
+                                            </Link>
+                                        </Box>
+                                    );
+                                })}
                             </Stack>
                         </Stack>
                     )}

@@ -7,7 +7,7 @@ import useSWR from "swr/immutable";
 
 export default function Player() {
     const { id } = useRouter().query;
-    const { data } = useSWR<AxiosEpisode>(id ? `/episode/${id}` : null);
+    const { data } = useSWR<AxiosEpisode>(`/episode/${id}`);
 
     const sources = useMemo(() => {
         if (!data) return [];

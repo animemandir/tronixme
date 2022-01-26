@@ -90,10 +90,10 @@ const getAnime = async (slug: string) => {
     };
 
     if (!anime.relations.prequel?.title) {
-        anime.relations.prequel = undefined;
+        anime.relations.prequel = null;
     }
     if (!anime.relations.sequel?.title) {
-        anime.relations.sequel = undefined;
+        anime.relations.sequel = null;
     }
 
     return anime;

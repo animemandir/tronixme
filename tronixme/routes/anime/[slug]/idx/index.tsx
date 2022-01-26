@@ -9,7 +9,7 @@ import Info from "./Info";
 
 export default function Anime() {
     const { slug } = useRouter().query;
-    const { data } = useSWR<AxiosAnime>(slug ? `/anime/${slug}` : null);
+    const { data } = useSWR<AxiosAnime>(`/anime/${slug}`);
 
     return (
         <Container maxWidth="xl" sx={{ my: 4 }}>

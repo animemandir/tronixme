@@ -36,8 +36,8 @@ export interface AxiosAnime {
     year: string;
     status: string;
     relations: {
-        sequel?: Relation;
-        prequel?: Relation;
+        sequel: Relation | null;
+        prequel: Relation | null;
     };
 }
 

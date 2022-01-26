@@ -7,7 +7,7 @@ import { Episode } from "@components";
 
 export default function Episodes() {
     const { slug } = useRouter().query;
-    const { data } = useSWR<AxiosAnime>(slug ? `/anime/${slug}` : null);
+    const { data } = useSWR<AxiosAnime>(`/anime/${slug}`);
 
     return (
         <Stack mt={2} component={Paper} p={2}>
