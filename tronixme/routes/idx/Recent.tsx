@@ -20,7 +20,7 @@ export default function Recent() {
 
             <Grid container spacing={4}>
                 {data.map(({ anime, date, description, episode, hot, img, id, slug }) => (
-                    <Grid item xs={12} sm={6} md={4} key={id}>
+                    <Grid item xs={12} sm={6} lg={4} key={id}>
                         <AnimeCard
                             url={`/anime/${slug}/${id}`}
                             slug={slug}
