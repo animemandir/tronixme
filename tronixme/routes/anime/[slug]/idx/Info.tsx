@@ -46,6 +46,8 @@ export default function Info() {
         if (rating > rounded) {
             return rounded + 0.5;
         }
+        if (rating === rounded) return rounded;
+
         return rounded - 0.5;
     }, [data]);
 
