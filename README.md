@@ -2,10 +2,12 @@
 
 ## Screenshots
 
-![](https://i.imgur.com/SUYqkrp.jpeg)
+![](https://i.imgur.com/AKGdNHN.png)
 
-![](https://i.imgur.com/NRAe9nu.png)
+![](https://i.imgur.com/XgcezFY.png)
 
-![](https://i.imgur.com/uFRuaZj.png)
+![](https://i.imgur.com/hYqahjI.png)
 
-![](https://i.imgur.com/NgJCxDr.png)
+![](https://i.imgur.com/Hl6a26z.png)
+
+![](https://i.imgur.com/OWpXTa9.png)
