@@ -66,7 +66,7 @@ export default function Info() {
                 </Grid>
                 <Grid item xs>
                     <Typography variant="h5" gutterBottom>
-                        {data?.title}
+                        {data?.title} {`(${data?.episodes.length})`}
                     </Typography>
 
                     <Stack flexDirection="row">
