@@ -20,7 +20,7 @@ export const getStaticProps: GetStaticProps = () =>
 
         return {
             props: { fallback },
-            revalidate: 1 * 60 * 60 * 1,
+            revalidate: 1 * 60 * 60 * 3,
         };
     });
 
