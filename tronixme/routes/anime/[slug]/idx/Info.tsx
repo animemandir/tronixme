@@ -42,7 +42,7 @@ export default function Info() {
                         {data?.title}
                     </Typography>
 
-                    <Rating value={Number(data?.score) / (1 / 0.5)} precision={0.5} readOnly />
+                    <Rating value={Number(data?.score) / 2} precision={0.1} readOnly />
 
                     <Typography>
                         <Typography component="span">Alternative: </Typography>
