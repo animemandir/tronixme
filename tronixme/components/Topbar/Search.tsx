@@ -1,4 +1,11 @@
-import { Autocomplete, Box, InputBase, Stack, Typography } from "@mui/material";
+import {
+    Autocomplete,
+    Box,
+    CircularProgress,
+    InputBase,
+    Stack,
+    Typography,
+} from "@mui/material";
 import type { AxiosSearch } from "animedao";
 import Router from "next/router";
 import { useState } from "react";
@@ -15,6 +22,8 @@ export default function Search() {
         debouncedSearch ? `/search?q=${encodeURIComponent(debouncedSearch)}` : null
     );
 
+    const loading = !data && !!search;
+
     const onEnter = ({ key }: KeyboardEvent) => {
         if (key !== "Enter") return;
         Router.push(`/search?q=${encodeURIComponent(search)}`);
@@ -25,7 +34,19 @@ export default function Search() {
             sx={{ flex: 1 }}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             renderInput={({ InputProps, InputLabelProps, ...rest }) => (
-                <InputBase {...InputProps} {...rest} placeholder="Search" />
+                <Stack flexDirection="row">
+                    <InputBase
+                        {...InputProps}
+                        {...rest}
+                        endAdornment={
+                            <>
+                                {InputProps.endAdornment}
+                                {loading && <CircularProgress size={20} color="inherit" />}
+                            </>
+                        }
+                        placeholder="Search"
+                    />
+                </Stack>
             )}
             renderOption={(props, { title, year, img }) => (
                 <Stack
@@ -57,7 +78,7 @@ export default function Search() {
             getOptionLabel={anime => anime.title}
             inputValue={search}
             onInputChange={(_, value) => setSearch(value)}
-            loading={!data && !!search}
+            loading={loading}
             onKeyDown={e => onEnter(e as any)}
             onChange={(_, value) => {
                 value?.slug && Router.push(`/anime/${value?.slug}`);
