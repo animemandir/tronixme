@@ -14,13 +14,40 @@ import {
 import type { AxiosAnime } from "animedao";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import useSWR from "swr";
 
 import { ResponsiveImage } from "@components";
 
+const ratings: { [key: string]: string } = {
+    0: "???",
+    0.5: "?",
+    1: "Horrifying",
+    1.5: "Awful",
+    2: "Very bad",
+    2.5: "Bad",
+    3: "Meh",
+    3.5: "Okay",
+    4: "Perfect",
+    4.5: "Excellent",
+    5: "Godlike",
+};
+
 export default function Info() {
     const { slug } = useRouter().query;
     const { data } = useSWR<AxiosAnime>(`/anime/${slug}`);
+
+    const rating = useMemo(() => {
+        if (!data?.score) return 0;
+
+        const rating = Number(data?.score) / 2;
+        const rounded = Math.round(rating);
+
+        if (rating > rounded) {
+            return rounded + 0.5;
+        }
+        return rounded - 0.5;
+    }, [data]);
 
     return (
         <Stack p={2} component={Paper} justifyContent="center" alignItems="center">
@@ -42,7 +69,12 @@ export default function Info() {
                         {data?.title}
                     </Typography>
 
-                    <Rating value={Number(data?.score) / 2} precision={0.1} readOnly />
+                    <Stack flexDirection="row">
+                        <Rating value={rating} precision={0.5} readOnly />
+                        <Typography variant="button" ml={0.5}>
+                            {ratings[rating]}
+                        </Typography>
+                    </Stack>
 
                     <Typography>
                         <Typography component="span">Alternative: </Typography>
