@@ -1,11 +1,11 @@
 import cheerio from "cheerio";
-import axios from "redaxios";
 import { URL } from "url";
 
-import { BASE_URL, USER_AGENT } from "./constants";
-import { AxiosEpisode, AxiosVideos } from "./types";
+import { BASE_URL } from "./constants";
+import { gogoParser } from "./parsers";
+import { AxiosEpisode } from "./types";
 import { AxiosAnime, AxiosRecent, AxiosSearch, AxiosUpcoming, Episodes } from "./types";
-import { between, bypassGogo, http } from "./utils";
+import { between, http } from "./utils";
 
 const getSearch = async (key: string) => {
     const { data: res } = await http(`${BASE_URL}/search/?search=${encodeURIComponent(key)}`);
@@ -101,26 +101,6 @@ const getAnime = async (slug: string) => {
 
 const getEpisode = async (id: string | number) => {
     const { data } = await http(`${BASE_URL}/view/${id}/`);
-    const raw = between('vidstream").innerHTML = \'<iframe src="', '" scrolling="no"', data);
-
-    const { data: iframe } = await http(`${BASE_URL}${raw}`);
-    const url = new URL("https:" + between('<iframe src="', '" scrolling="no"', iframe));
-
-    const { data: html } = await http(url.href);
-
-    const params = bypassGogo(cheerio.load(html), url.searchParams.get("id") || "");
-
-    const { data: videos } = await axios.get<AxiosVideos>(
-        `${url.protocol}//${url.hostname}/encrypt-ajax.php?${params}`,
-        {
-            headers: {
-                "User-Agent": USER_AGENT,
-                Referrer: url.href,
-                "X-Requested-With": "XMLHttpRequest",
-            },
-        }
-    );
-
     const $ = cheerio.load(data);
 
     const epText = $(
@@ -131,12 +111,24 @@ const getEpisode = async (id: string | number) => {
 
     const ep = Number(epText.slice(epText.indexOf("episode")).replace(/[^0-9.]/g, ""));
 
-    const result: AxiosEpisode = {
-        videos,
-        ep,
-    };
+    const gogo = between('vidstream").innerHTML = \'<iframe src="', '" scrolling="no"', data);
 
-    return result;
+    if (gogo.length < 1000) {
+        const { data: iframe } = await http(`${BASE_URL}${gogo}`);
+        const url = new URL("https:" + between('<iframe src="', '" scrolling="no"', iframe));
+
+        const { data: html } = await http(url.href);
+
+        return {
+            videos: await gogoParser(html, url),
+            ep,
+        } as AxiosEpisode;
+    }
+
+    return {
+        videos: {},
+        ep: [],
+    };
 };
 
 const getRecent = async () => {
