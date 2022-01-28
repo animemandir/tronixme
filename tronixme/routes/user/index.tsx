@@ -1,5 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
+
+import { onServer } from "@utils";
 
 export default function User() {
-    return <Box>User page</Box>;
+    return (
+        <Container>
+            <Box>{!onServer() && localStorage.getItem("activity")}</Box>
+        </Container>
+    );
 }

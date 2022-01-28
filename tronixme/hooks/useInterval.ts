@@ -6,6 +6,11 @@ export function useInterval(fn: () => void, ms = 200) {
     const timeoutRef = useRef<number>();
     const fnRef = useRef(fn);
 
+    // always call the latest given function
+    useEffect(() => {
+        fnRef.current = fn;
+    });
+
     useEffect(() => {
         if (onServer()) return;
 
