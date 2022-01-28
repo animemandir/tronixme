@@ -41,14 +41,14 @@ export default function Info() {
         if (!data?.score) return 0;
 
         const rating = Number(data?.score) / 2;
-        const rounded = Math.round(rating);
+        const ratios = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
-        if (rating > rounded) {
-            return rounded + 0.5;
+        for (const ratio of ratios) {
+            if (rating >= ratio && rating < ratio + 0.5) {
+                return ratio;
+            }
         }
-        if (rating === rounded) return rounded;
-
-        return rounded - 0.5;
+        return 0;
     }, [data]);
 
     return (
