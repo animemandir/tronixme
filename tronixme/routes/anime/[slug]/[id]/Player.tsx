@@ -1,17 +1,44 @@
-import type { AxiosEpisode } from "animedao";
+import { useTheme } from "@mui/material";
+import { AxiosAnime, AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
-import Plyr from "plyr-react";
+import Plyr, { PlyrInstance } from "plyr-react";
 import "plyr-react/dist/plyr.css";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import useSWR from "swr/immutable";
 
+import { useInterval } from "@hooks";
+
+type PlyrRef = {
+    plyr: PlyrInstance;
+};
+
+const updateTime = (slug: string, ms: number) => {
+    let current = JSON.parse(localStorage.getItem("started") || "{}");
+
+    if (current?.[slug]) {
+        current[slug] = ms;
+    } else {
+        current = {
+            ...current,
+            [slug]: ms,
+        };
+    }
+
+    localStorage.setItem("started", JSON.stringify(current));
+};
+
 export default function Player() {
-    const { id } = useRouter().query;
-    const { data } = useSWR<AxiosEpisode>(`/episode/${id}`);
+    const { id, slug } = useRouter().query;
+
+    const { data: episode } = useSWR<AxiosEpisode>(`/episode/${id}`);
+    const { data: anime } = useSWR<AxiosAnime>(`/anime/${slug}`);
+    const theme = useTheme();
+
+    const plyrRef = useRef<PlyrRef>(null);
 
     const sources = useMemo(() => {
-        if (!data) return [];
-        const { videos } = data;
+        if (!episode) return [];
+        const { videos } = episode;
         // 1080p
         return videos.source.map(({ file, label }) => {
             const size = label.replace(/\D/g, "");
@@ -20,14 +47,24 @@ export default function Player() {
                 size: Number(size) || undefined,
             } as any;
         });
-    }, [data]);
+    }, [episode]);
+
+    useInterval(() => {
+        if (!plyrRef.current?.plyr) return;
+        if (!plyrRef.current.plyr.playing) return;
+        updateTime(String(slug), plyrRef.current.plyr.currentTime);
+    }, 2000);
 
     return (
         <Plyr
             source={{
                 type: "video",
+                poster: anime?.img,
+                title: anime?.title,
                 sources,
             }}
+            ref={plyrRef}
+            style={{ ["--plyr-color-main" as any]: theme.palette.primary.main }}
         />
     );
 }
