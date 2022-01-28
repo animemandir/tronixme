@@ -1,4 +1,5 @@
 import cheerio from "cheerio";
+import axios from "redaxios";
 import { URL } from "url";
 
 import { BASE_URL } from "./constants";
@@ -117,7 +118,7 @@ const getEpisode = async (id: string | number) => {
         const { data: iframe } = await http(`${BASE_URL}${gogo}`);
         const url = new URL("https:" + between('<iframe src="', '" scrolling="no"', iframe));
 
-        const { data: html } = await http(url.href);
+        const { data: html } = await axios.get(url.href);
 
         return {
             videos: await gogoParser(html, url),
