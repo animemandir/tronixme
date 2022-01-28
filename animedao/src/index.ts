@@ -125,9 +125,9 @@ const getEpisode = async (id: string | number) => {
         } as AxiosEpisode;
     }
 
-    return {
-        videos: {},
-        ep: [],
+    throw {
+        status: 500,
+        data: "Episode not found for this anime",
     };
 };
 
