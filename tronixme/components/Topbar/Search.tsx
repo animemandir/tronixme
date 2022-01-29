@@ -73,6 +73,7 @@ export default function Search() {
                     </Box>
                 </Stack>
             )}
+            isOptionEqualToValue={(option, value) => option.title === value.title}
             filterOptions={x => x}
             options={data || []}
             getOptionLabel={anime => anime.title}

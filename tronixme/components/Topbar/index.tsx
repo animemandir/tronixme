@@ -1,3 +1,4 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import KeyIcon from "@mui/icons-material/Key";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,6 +39,11 @@ const pages = [
         icon: <WatchLaterIcon />,
     },
     {
+        title: "User",
+        url: "/user",
+        icon: <AccountCircleIcon />,
+    },
+    {
         title: "Auth",
         url: "/auth",
         icon: <KeyIcon />,
@@ -46,7 +52,7 @@ const pages = [
 
 export function Topbar() {
     const router = useRouter();
-    const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
+    const mobile = useMediaQuery((theme: Theme) => theme.breakpoints.down("md"));
 
     const [open, setOpen] = useState(false);
 
