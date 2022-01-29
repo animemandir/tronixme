@@ -3,21 +3,23 @@ import { AxiosAnime, AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
 import Plyr, { PlyrInstance } from "plyr-react";
 import "plyr-react/dist/plyr.css";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import useSWR from "swr/immutable";
 
-import { useInterval } from "@hooks";
+import { useInterval, useRefCallback } from "@hooks";
+
+import { onServer } from "@utils";
 
 type PlyrRef = {
     plyr: PlyrInstance;
 };
 
-const updateTime = (slug: string, ms: number, ep = 0, id = "") => {
+const updateTime = (slug: string, sec: number, ep = 0, id = "") => {
     let current = JSON.parse(localStorage.getItem("activity") || "{}");
 
     if (current?.[slug]) {
         current[slug] = {
-            ms,
+            sec,
             ep,
             id,
         };
@@ -25,7 +27,7 @@ const updateTime = (slug: string, ms: number, ep = 0, id = "") => {
         current = {
             ...current,
             [slug]: {
-                ms,
+                sec,
                 ep,
                 id,
             },
@@ -37,12 +39,10 @@ const updateTime = (slug: string, ms: number, ep = 0, id = "") => {
 
 export default function Player() {
     const { id, slug } = useRouter().query;
+    const theme = useTheme();
 
     const { data: episode } = useSWR<AxiosEpisode>(`/episode/${id}`);
     const { data: anime } = useSWR<AxiosAnime>(`/anime/${slug}`);
-    const theme = useTheme();
-
-    const plyrRef = useRef<PlyrRef>(null);
 
     const sources = useMemo(() => {
         if (!episode) return [];
@@ -57,11 +57,23 @@ export default function Player() {
         });
     }, [episode]);
 
+    const [plyrRefCallback, plyrRef] = useRefCallback<PlyrRef>(({ plyr }) => {
+        if (onServer()) return;
+
+        const activity = JSON.parse(localStorage.getItem("activity") || "{}")[String(slug)];
+        if (activity && activity.ep === episode?.ep && plyr.on) {
+            plyr.on("loadeddata", () => {
+                // why does this forward 2x seconds?
+                plyr.forward(activity.sec / 2);
+            });
+        }
+    });
+
     useInterval(() => {
         if (!plyrRef.current?.plyr) return;
         if (!plyrRef.current.plyr.playing) return;
         updateTime(String(slug), plyrRef.current.plyr.currentTime, episode?.ep, String(id));
-    }, 2000);
+    }, 1000);
 
     return (
         <Plyr
@@ -71,7 +83,7 @@ export default function Player() {
                 title: anime?.title,
                 sources,
             }}
-            ref={plyrRef}
+            ref={plyrRefCallback}
             style={{ ["--plyr-color-main" as any]: theme.palette.primary.main }}
         />
     );
