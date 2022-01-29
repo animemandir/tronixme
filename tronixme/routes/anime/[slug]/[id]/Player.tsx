@@ -3,7 +3,7 @@ import { AxiosAnime, AxiosEpisode } from "animedao";
 import { useRouter } from "next/router";
 import Plyr, { PlyrInstance } from "plyr-react";
 import "plyr-react/dist/plyr.css";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import useSWR from "swr/immutable";
 
 import { useInterval, useRefCallback } from "@hooks";
