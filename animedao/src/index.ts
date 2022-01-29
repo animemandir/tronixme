@@ -38,7 +38,10 @@ const getAnime = async (slug: string) => {
     $("a.episode_well_link").each((_, el) => {
         episodes.push({
             date: $(el).find(".front_time").text().trim(),
-            id: $(el).attr("href")?.replace(/\D+/g, "") || "",
+            id:
+                $(el)
+                    .attr("href")
+                    ?.replace(/[^0-9.,]+/g, "") || "",
             name: $(el).find("div.anime-title").text().trim(),
             description: $(el).find("span.latestanime-subtitle").text().trim(),
         });
@@ -110,7 +113,7 @@ const getEpisode = async (id: string | number) => {
         .text()
         .toLowerCase();
 
-    const ep = Number(epText.slice(epText.indexOf("episode")).replace(/[^0-9.]/g, ""));
+    const ep = Number(epText.slice(epText.indexOf("episode")).replace(/[^0-9.,]+/g, ""));
 
     const gogo = between('vidstream").innerHTML = \'<iframe src="', '" scrolling="no"', data);
 
@@ -148,7 +151,11 @@ const getRecent = async () => {
             episode,
             hot: $(el).text().includes("HOT"),
             img: BASE_URL + $(el).find("img").attr("data-src"),
-            id: $(el).find("a").attr("href")?.replace(/\D+/g, "") || "",
+            id:
+                $(el)
+                    .find("a")
+                    .attr("href")
+                    ?.replace(/[^0-9.,]+/g, "") || "",
             slug:
                 $(el)
                     .find("a.latest-parent")

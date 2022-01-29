@@ -49,7 +49,7 @@ export default function Player() {
         const { videos } = episode;
         // 1080p
         return videos.source.map(({ file, label }) => {
-            const size = label.replace(/\D/g, "");
+            const size = label.replace(/[^0-9.,]+/g, "");
             return {
                 src: file,
                 size: Number(size) || undefined,

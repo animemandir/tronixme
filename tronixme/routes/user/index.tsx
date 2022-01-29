@@ -1,11 +1,15 @@
-import { Box, Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
-import { onServer } from "@utils";
+import Activity from "./Activity";
 
 export default function User() {
     return (
         <Container>
-            <Box>{!onServer() && localStorage.getItem("activity")}</Box>
+            <Grid container mt={4}>
+                <Grid item xs={12}>
+                    <Activity />
+                </Grid>
+            </Grid>
         </Container>
     );
 }

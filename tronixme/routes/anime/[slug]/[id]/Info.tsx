@@ -12,7 +12,7 @@ export default function Info() {
 
     const selected = (name: string, ep: number) => {
         const index = name.toLowerCase().indexOf("episode");
-        return Number(name.slice(index).replace(/\D/g, "")) === ep;
+        return Number(name.slice(index).replace(/[^0-9.,]+/g, "")) === ep;
     };
 
     return (
