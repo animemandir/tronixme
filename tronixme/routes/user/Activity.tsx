@@ -67,12 +67,14 @@ export default function Started() {
 
         const parsed = JSON.parse(started);
 
-        return Object.keys(parsed).map(key => ({
-            slug: key,
-            id: parsed[key].id,
-            ep: parsed[key].ep,
-            sec: parsed[key].sec,
-        }));
+        return Object.keys(parsed)
+            .map(key => ({
+                slug: key,
+                id: parsed[key].id,
+                ep: parsed[key].ep,
+                sec: parsed[key].sec,
+            }))
+            .reverse();
     }, []);
 
     return (
