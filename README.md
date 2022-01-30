@@ -1,4 +1,8 @@
-# Tronixme - Yet another GOGOanime scraper
+# Tronixme - a self-hostable modern gogoanime scraper
+
+### Disclaimer
+
+
 
 ## Screenshots
 

@@ -4,7 +4,7 @@ import type { NextApiRequest as Request, NextApiResponse as Response } from "nex
 import { handleError } from "@utils";
 
 const get = async (req: Request, res: Response) => {
-    if (req.cookies.secret !== process.env.SECRET) {
+    if (process.env.SECRET && req.cookies.secret !== process.env.SECRET) {
         res.status(403).json("Forbidden");
         return;
     }

@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = ({ query, req }) =>
     handleSSR(async () => {
         const { slug, id } = query;
 
-        if (req.cookies.secret !== process.env.SECRET) {
+        if (process.env.SECRET && req.cookies.secret !== process.env.SECRET) {
             return {
                 props: {
                     error: {
