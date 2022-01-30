@@ -15,11 +15,11 @@
 
 - The content is provided by [animedao.to](https://animedao.to)
 
-### ### Try it locally
+### Try it locally
 
 - npm >=8 is needed
 - clone the repo
-- npm i 
+- npm i
 - npm run animedao:build
 - npm run dev
 
