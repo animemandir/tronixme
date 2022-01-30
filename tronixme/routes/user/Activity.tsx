@@ -38,7 +38,7 @@ const Viewed = ({ ep, slug, sec }: ViewedProps) => {
             const lower = name.toLowerCase();
             return lower
                 .slice(lower.indexOf("episode"))
-                .replace(/\D+/g, "")
+                .replace(/[^0-9.,]+/g, "")
                 .includes(String(ep));
         });
         Router.push(`/anime/${slug}/${episode?.id}`);

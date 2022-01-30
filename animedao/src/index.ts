@@ -38,10 +38,7 @@ const getAnime = async (slug: string) => {
     $("a.episode_well_link").each((_, el) => {
         episodes.push({
             date: $(el).find(".front_time").text().trim(),
-            id:
-                $(el)
-                    .attr("href")
-                    ?.replace(/[^0-9.,]+/g, "") || "",
+            id: $(el).attr("href")?.replace(/\D+/g, "") || "",
             name: $(el).find("div.anime-title").text().trim(),
             description: $(el).find("span.latestanime-subtitle").text().trim(),
         });

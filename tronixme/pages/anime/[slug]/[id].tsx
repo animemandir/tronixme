@@ -14,13 +14,9 @@ export const getServerSideProps: GetServerSideProps = ({ query, req }) =>
         const { slug, id } = query;
 
         if (process.env.SECRET && req.cookies.secret !== process.env.SECRET) {
-            return {
-                props: {
-                    error: {
-                        status: 403,
-                        data: "Forbidden",
-                    },
-                },
+            throw {
+                status: 403,
+                data: "Forbidden",
             };
         }
 

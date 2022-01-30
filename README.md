@@ -2,7 +2,22 @@
 
 ### Disclaimer
 
+My own hosted version [tronixme.vercel.app](https://tronixme.vercel.app) is private because of legal concerns
 
+### Features
+
+- Self-hostable
+- SSR
+- Can be private when env SECRET is set
+- Scrapes [animedao.to](https://animedao.to)
+- Modern UI
+- No ads/tracking things
+- Raw video playback
+- Saves recently watched videos in the /user page
+
+### Credits
+
+- The content is provided by [animedao.to](https://animedao.to)
 
 ## Screenshots
 
