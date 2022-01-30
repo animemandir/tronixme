@@ -14,14 +14,13 @@ type PlyrRef = {
     plyr: PlyrInstance;
 };
 
-const updateTime = (slug: string, sec: number, ep = 0, id = "") => {
+const updateTime = (slug: string, sec: number, ep = 0) => {
     let current = JSON.parse(localStorage.getItem("activity") || "{}");
 
     if (current?.[slug]) {
         current[slug] = {
             sec,
             ep,
-            id,
         };
     } else {
         current = {
@@ -29,7 +28,6 @@ const updateTime = (slug: string, sec: number, ep = 0, id = "") => {
             [slug]: {
                 sec,
                 ep,
-                id,
             },
         };
     }
@@ -72,7 +70,7 @@ export default function Player() {
     useInterval(() => {
         if (!plyrRef.current?.plyr) return;
         if (!plyrRef.current.plyr.playing) return;
-        updateTime(String(slug), plyrRef.current.plyr.currentTime, episode?.ep, String(id));
+        updateTime(String(slug), plyrRef.current.plyr.currentTime, episode?.ep);
     }, 1000);
 
     return (

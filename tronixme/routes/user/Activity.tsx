@@ -34,7 +34,14 @@ const Viewed = ({ ep, slug, sec }: ViewedProps) => {
     const progress = useMemo(() => Math.round((sec / (23 * 60)) * 100), [sec]);
 
     const onClick = () => {
-        Router.push(`/anime/${slug}`);
+        const episode = data?.episodes.find(({ name }) => {
+            const lower = name.toLowerCase();
+            return lower
+                .slice(lower.indexOf("episode"))
+                .replace(/\D+/g, "")
+                .includes(String(ep));
+        });
+        Router.push(`/anime/${slug}/${episode?.id}`);
     };
 
     if (!data) {
